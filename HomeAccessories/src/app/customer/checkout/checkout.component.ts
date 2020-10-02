@@ -1,0 +1,51 @@
+import { Component, Injector, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BaseComponent } from 'src/app/lib/base-component';
+
+@Component({
+  selector: 'app-checkout',
+  templateUrl: './checkout.component.html',
+  styleUrls: ['./checkout.component.css'],
+})
+export class CheckoutComponent extends BaseComponent implements OnInit {
+  constructor(injector: Injector) {
+    super(injector);
+  }
+  items: any;
+  total: any;
+  public hoadonForm: FormGroup;
+
+  ngOnInit(): void {
+    this.hoadonForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      address: new FormControl(''),
+      phone: new FormControl(''),
+    });
+    this._cart.items.subscribe((res) => {
+      this.items = res;
+      this.total = 0;
+      for (let x of this.items) {
+        x.quantity = +x.quantity;
+        x.money = x.quantity * x.price;
+        this.total += x.quantity * x.price;
+      }
+    });
+  }
+  onSubmit(value: any) {
+    let hoadon = {
+      name: value.name,
+      address: value.address,
+      phone: value.phone,
+      litjson_chitiet: this.items,
+    };
+    this._api
+      .post('/api/hoadon/create-hoa-don', hoadon)
+      .takeUntil(this.unsubscribe)
+      .subscribe(
+        (res) => {
+          alert('Tạo thành công!');
+        },
+        (err) => {}
+      );
+  }
+}
