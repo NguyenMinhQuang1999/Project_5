@@ -2,31 +2,31 @@
 using Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace DAL
 {
-    public partial class CustomerRepository : ICustomerRepository
+
+    public partial class BillRepository : IBillResponsitory
     {
         private IDatabaseHelper _dbHelper;
-        public CustomerRepository(IDatabaseHelper dbHelper)
+        public BillRepository(IDatabaseHelper dbHelper)
         {
             _dbHelper = dbHelper;
         }
 
-        public bool Create(CustomerModel model)
+        public bool Create(BillModel model)
         {
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_customer_create",
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_hoa_don_create",
+                "@id", model.id,
                 "@name", model.name,
-                "@customer_email", model.customer_email,
-                "@customer_password", model.customer_password,
+                "@total", model.total,
                 "@address", model.address,
-                "@phone", model.phone
-                );
+                "@phone", model.phone,
+                "@listjson_chitiet", model.listjson_chitiet != null ? MessageConvert.SerializeObject(model.listjson_chitiet) : null);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);

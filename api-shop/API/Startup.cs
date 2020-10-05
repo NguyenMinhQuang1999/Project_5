@@ -46,6 +46,10 @@ namespace API
             services.AddTransient<ICustomerBusiness, CustomerBusiness>();
             services.AddTransient<IProductRespository, ProductRepository>();
             services.AddTransient<IProductBusiness, ProductBusiness>();
+            services.AddTransient<ICategoryResponsitory, CategoryRepository>();
+            services.AddTransient<ICategoryBusiness, CategoryBusiness>();
+            services.AddTransient<IBillResponsitory, BillRepository>();
+            services.AddTransient<IBillBusiness, BillBusiness>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
