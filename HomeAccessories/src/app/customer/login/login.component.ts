@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/lib/base-component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -28,9 +28,9 @@ export class LoginComponent extends BaseComponent implements OnInit {
   onSubmitLogin(value: any) {}
   onSubmitRegister(value: any) {
     this._api
-      .post('/api/customer/create-item', {
+      .post('api/customer/create-item', {
         customer_email: value.email,
-        customer_password: value.customer_password,
+        customer_password: value.password,
       })
       .takeUntil(this.unsubscribe)
       .subscribe(

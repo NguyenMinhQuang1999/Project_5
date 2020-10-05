@@ -25,9 +25,9 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
       this.items = res;
       this.total = 0;
       for (let x of this.items) {
-        x.quantity = +x.quantity;
-        x.money = x.quantity * x.price;
-        this.total += x.quantity * x.price;
+        x.quantity_sale = +x.quantity_sale;
+        x.money = x.quantity_sale * x.price;
+        this.total += x.quantity_sale * x.price;
       }
     });
   }
@@ -36,10 +36,11 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
       name: value.name,
       address: value.address,
       phone: value.phone,
-      litjson_chitiet: this.items,
+      total: this.total,
+      listjson_chitiet: this.items,
     };
     this._api
-      .post('/api/hoadon/create-hoa-don', hoadon)
+      .post('api/bill/create-bill', hoadon)
       .takeUntil(this.unsubscribe)
       .subscribe(
         (res) => {

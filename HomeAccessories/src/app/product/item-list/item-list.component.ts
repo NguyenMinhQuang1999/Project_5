@@ -22,7 +22,7 @@ export class ItemListComponent extends BaseComponent implements OnInit {
     this._route.params.subscribe((params) => {
       this.category_id = params['id'];
       this._api
-        .post('/api/product/search', {
+        .post('api/product/search', {
           page: this.page,
           pageSize: this.pageSize,
           category_id: this.category_id,
@@ -31,6 +31,7 @@ export class ItemListComponent extends BaseComponent implements OnInit {
         .subscribe(
           (res) => {
             this.list = res.data;
+            console.log(this.list);
             this.totalItems = res.totalItems;
           },
           (err) => {}
@@ -41,7 +42,7 @@ export class ItemListComponent extends BaseComponent implements OnInit {
     this._route.params.subscribe((params) => {
       let id = params['id'];
       this._api
-        .post('/api/product/search', {
+        .post('api/product/search', {
           page: page,
           pageSize: this.pageSize,
           category_id: id,
@@ -50,6 +51,7 @@ export class ItemListComponent extends BaseComponent implements OnInit {
         .subscribe(
           (res) => {
             this.list = res.data;
+            console.log(this.list);
             this.totalItems = res.totalItems;
           },
           (err) => {}

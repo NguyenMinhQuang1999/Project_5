@@ -42,8 +42,8 @@
                       <td class="product-price-cart"><span class="amount">{{ i.price }}</span></td>
                       <td class="product-quantity">
                         <div class="cart-plus-minus">
-                          <input class="cart-plus-minus-box" min='1' type="number" #inp name="qtybutton"
-                            (change)="addQty(i,inp.value)" [value]="i.quantity" />
+                          <input class="cart-plus-minus-box" min='1' [max]="i.quantity" type="number" #inp
+                            name="qtybutton" (change)="addQty(i,inp.value)" [value]="i.quantity_sale" />
                         </div>
                       </td>
                       <td class="product-subtotal">{{ i.money }}</td>

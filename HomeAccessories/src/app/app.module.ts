@@ -14,8 +14,15 @@ import { CheckoutComponent } from './customer/checkout/checkout.component';
 import { LoginComponent } from './customer/login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CategoryComponent } from './shared/category/category.component';
 @NgModule({
-  declarations: [AppComponent, MainComponent, HeaderComponent, FooterComponent],
+  declarations: [
+    AppComponent,
+    MainComponent,
+    HeaderComponent,
+    CategoryComponent,
+    FooterComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

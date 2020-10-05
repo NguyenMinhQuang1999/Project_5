@@ -15,7 +15,7 @@ export class CartService {
   }
 
   addToCart(item) {
-    item.quantity = 1;
+    item.quantity_sale = 1;
     let local_storage: any;
     if (localStorage.getItem('cart') == null) {
       local_storage = [item];
@@ -24,7 +24,7 @@ export class CartService {
       let ok = true;
       for (let x of local_storage) {
         if (x.product_id == item.product_id) {
-          x.quantity += 1;
+          x.quantity_sale += 1;
           ok = false;
           break;
         }
@@ -57,7 +57,7 @@ export class CartService {
     let local_storage = JSON.parse(localStorage.getItem('cart'));
     for (let x of local_storage) {
       if (x.product_id == item.product_id) {
-        x.quantity = item.quantity;
+        x.quantity_sale = item.quantity_sale;
         break;
       }
     }
