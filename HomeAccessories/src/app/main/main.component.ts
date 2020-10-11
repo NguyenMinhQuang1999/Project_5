@@ -21,9 +21,9 @@ export class MainComponent extends BaseComponent implements OnInit {
       .subscribe(
         (res) => {
           this.list_item = res[0];
-          setTimeout(() => {
-            this.loadScripts();
-          });
+          // setTimeout(() => {
+          //   this.loadScripts();
+          // });
         },
         (err) => {}
       );

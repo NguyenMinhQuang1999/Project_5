@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 
@@ -21,7 +22,7 @@ namespace DAL
             try
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_product_create",
-                "@product_id", model.product_id,
+                
                 "@name", model.name,
                 "@image", model.image,
                 "@price", model.price,
@@ -30,8 +31,56 @@ namespace DAL
                 "@category_id", model.category_id,
                 "@description", model.description,
                 "@detail", model.detail,
-                "@status", model.status,
-                "@created_at", model.created_at);
+                "@status", model.status
+              );
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public bool Edit(string id, ProductModel model) {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_product_update",
+                "@product_id", id,
+                "@name", model.name,
+                "@image", model.image,
+                "@price", model.price,
+                "@quantity", model.quantity,
+                "@promotion_price", model.promotion_price,
+                "@category_id", model.category_id,
+                "@description", model.description,
+                "@detail", model.detail,
+                "@status", model.status
+              );
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
+                {
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool Delete (string id)
+        {
+            string msgError = "";
+            try
+            {
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_product_delete",
+                "@product_id", id
+                
+              );
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -87,6 +136,26 @@ namespace DAL
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ProductModel> GetProductRelated(int id, string category_id)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_get_product_related",
+                    "@product_id", id,
+                    "@category_id", category_id
+                    
+                     );
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
                 return dt.ConvertTo<ProductModel>().ToList();
             }
             catch (Exception ex)

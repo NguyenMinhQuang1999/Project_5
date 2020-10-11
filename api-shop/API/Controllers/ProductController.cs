@@ -23,8 +23,25 @@ namespace API.Controllers
         [HttpPost]
         public ProductModel CreateProduct([FromBody] ProductModel model)
         {
+            
             _ProductBusiness.Create(model);
             return model;
+        }
+
+    
+        [Route("update-product")]
+        [HttpPost]
+        public ProductModel Edit(string id, [FromBody] ProductModel model)
+        {
+            _ProductBusiness.Edit(id, model);
+            return model;
+        }
+        [Route("delete-product/{id}")]
+
+        public bool Delete(string id)
+        {
+            return _ProductBusiness.Delete(id);
+
         }
 
         [Route("get-by-id/{id}")]
@@ -38,6 +55,13 @@ namespace API.Controllers
         public IEnumerable<ProductModel> GetDatabAll()
         {
             return _ProductBusiness.GetDataAll();
+        }
+
+        [Route("get-product-related/{id}/{category_id}")]
+        [HttpGet]
+        public IEnumerable<ProductModel> GetProductRelated(int id, string category_id)
+        {
+            return _ProductBusiness.GetProductRelated(id, category_id);
         }
 
         [Route("search")]

@@ -33,5 +33,43 @@ namespace API.Controllers
             _hoaDonBusiness.Create(model);
             return model;
         }
+
+        [Route("get-bill-detail/{id}")]
+        [HttpGet] 
+        public BillDetailModel GetBillDetail(string id)
+        {
+            return _hoaDonBusiness.GetBillByID(id);
+        }
+
+        [Route("delete-bill/{id}")]
+        [HttpGet]
+        public bool Delet(string id)
+        {
+            return _hoaDonBusiness.Delete(id);
+        }
+
+
+        [Route("change-status/{id}/{msg}")]
+        [HttpGet]
+        public bool changeStatus(string id, string msg)
+        {
+            return _hoaDonBusiness.changeStatus(id, msg);
+        }
+
+
+
+        [Route("get-bills")]
+        [HttpGet]
+        public List<BillModel> GetBills()
+        {
+            return _hoaDonBusiness.GetAllBill();
+        }
+
+        [Route("doanh-thu-theo-thang")]
+        [HttpGet]
+        public List<int> DoanhThuTheoThang()
+        {
+            return _hoaDonBusiness.ThongKeDoanhThuTheoThang();
+        }
     }
 }

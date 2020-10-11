@@ -29,8 +29,12 @@ export class CartComponent extends BaseComponent implements OnInit {
     alert('Xóa thành công!');
   }
   addQty(item, quantity_sale) {
-    item.quantity_sale = quantity_sale;
-    item.money = Number.parseInt(item.quantity_sale) * item.price;
-    this._cart.addQty(item);
+    if (item.quantity >= quantity_sale) {
+      item.quantity_sale = quantity_sale;
+      item.money = Number.parseInt(item.quantity_sale) * item.price;
+      this._cart.addQty(item);
+    } else {
+      alert('Số lượng không đủ!');
+    }
   }
 }

@@ -11,8 +11,10 @@ export class ItemDetailComponent extends BaseComponent implements OnInit {
     super(injector);
   }
   product: any;
+  productRelative: any;
+  category_id: any;
   ngOnInit(): void {
-    (this.product = {}),
+    ((this.product = {}), this.productRelative= []),
       this._route.params.subscribe((params) => {
         let id = params['id'];
         this._api
@@ -20,11 +22,27 @@ export class ItemDetailComponent extends BaseComponent implements OnInit {
           .takeUntil(this.unsubscribe)
           .subscribe((res) => {
             this.product = res;
+            console.log(this.product);
+            this.category_id = res.category_id;
+              this._api
+          .get('api/product/get-product-related/' + id + '/' + this.category_id)
+          .takeUntil(this.unsubscribe)
+          .subscribe((data) => {
+
+            this.productRelative = data;
+            console.log(this.productRelative);
             setTimeout(() => {
               this.loadScripts();
             });
+        });
+            // setTimeout(() => {
+            //   this.loadScripts();
+            // });
           });
+         console.log(id, this.category_id);
+
       });
+
   }
   addToCart(it) {
     this._cart.addToCart(it);

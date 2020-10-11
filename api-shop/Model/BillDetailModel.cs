@@ -11,6 +11,9 @@ namespace Model
         public int product_id { get; set; }
         public int  quantity_sale { get; set; }
         public int price { get; set; }
-        
+        public string name
+        {
+            set; get;
+        }
     }
 }
