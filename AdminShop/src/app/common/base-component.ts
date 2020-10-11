@@ -1,10 +1,24 @@
-import { of as observableOf, fromEvent } from 'rxjs';
+import { of as observableOf, fromEvent, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { FileUpload } from 'primeng/fileupload';
+import { ActivatedRoute } from '@angular/router';
+import { Injector, Renderer2, } from '@angular/core';
+import { ApiService } from './api_service';
 export class BaseComponent {
   public genders: any;
   public locale_vn: any;
-  constructor() {
+
+  public unsubcribe = new Subject();
+  public _renderer: any;
+  public _api: ApiService;
+  public _route: ActivatedRoute;
+
+  constructor(injector: Injector) {
+    this._renderer = injector.get(Renderer2);
+    this._api = injector.get(ApiService);
+    this._route = injector.get(ActivatedRoute);
+
+
     this.genders = [
       { label: 'Nam', value: 'Nam' },
       { label: 'Nữ', value: 'Nữ' },
@@ -55,6 +69,21 @@ export class BaseComponent {
       clear: 'Xóa',
     };
   }
+
+
+  //  public loadScripts() {
+  //        this.renderExternalScript('assets/js/main.js').onload = () => {
+  //        }
+  //      }
+   public renderExternalScript(src: string): HTMLScriptElement {
+         const script = document.createElement('script');
+         script.type = 'text/javascript';
+         script.src = src;
+         script.async = true;
+         script.defer = true;
+         this._renderer.appendChild(document.body, script);
+         return script;
+       }
   public getEncodeFromImage(fileUpload: FileUpload) {
     if (fileUpload) {
       if (fileUpload.files == null || fileUpload.files.length == 0) {
