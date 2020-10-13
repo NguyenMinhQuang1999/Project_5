@@ -9,6 +9,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from '../shared/not-found/not-found.component';
 //import { SharedModule } from 'primeng/api';
 import { SharedModule } from '../shared/shared.module';
+import { UnauthorizedComponent } from '../shared/unauthorized/unauthorized.component';
+import { RoleGuard } from '../common/auth.guard';
+import { Role } from '../models/role';
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -19,9 +22,15 @@ export const mainRoutes: Routes = [
         component: DashboardComponent,
       },
       {
+        path: 'unauthorized',
+        component: UnauthorizedComponent
+      },
+      {
         path: 'user',
         loadChildren: () =>
           import('../main/user/user.module').then((m) => m.UserModule),
+        canActivate: [RoleGuard],
+        data: {roles: [Role.Admin]}
       },
       {
         path: 'manager',
@@ -29,6 +38,8 @@ export const mainRoutes: Routes = [
          import('../main/product/product.module').then(
             (m) => m.ProductModule
           ),
+        canActivate: [RoleGuard],
+        data: {roles: [Role.Admin, Role.User]}
       },
       {path: '**', component: NotFoundComponent}
     ],
