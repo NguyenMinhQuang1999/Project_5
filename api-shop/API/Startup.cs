@@ -27,6 +27,8 @@ namespace API
                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                .AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -34,8 +36,9 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
-            //services.AddCors(options => {
+            //services.AddCors();
+            //services.AddCors(options =>
+            //{
             //    options.AddPolicy("AllowAll", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             //});
             services.AddControllers();
@@ -52,6 +55,13 @@ namespace API
             services.AddTransient<ICategoryBusiness, CategoryBusiness>();
             services.AddTransient<IBillResponsitory, BillRepository>();
             services.AddTransient<IBillBusiness, BillBusiness>();
+            services.AddTransient<IUserResponsitory, UserRespository>();
+            services.AddTransient<IUserBusiness, UserBusiness>();
+
+
+
+            services.AddCors();
+            services.AddControllers();
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -82,23 +92,39 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            app.UseApiMiddleware();
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //app.UseApiMiddleware();
+            //app.UseRouting();
+            //app.UseAuthorization();
+            //app.UseCors("AllowAll");
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+            //app.UseHttpsRedirection();
+
+
+            //  app.UseRouting();
+
+            // global cors policy
+            //app.UseCors(x => x
+            //    .AllowAnyOrigin()
+            //    .AllowAnyMethod()
+            //    .AllowAnyHeader());
+
+            //app.UseAuthentication();
+            // app.UseAuthorization();
+
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllers();
+            //});
+
+
             app.UseRouting();
-            app.UseAuthorization();
-            app.UseCors("AllowAll");
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-            app.UseHttpsRedirection();
-
-
-          //  app.UseRouting();
-
             // global cors policy
             app.UseCors(x => x
                 .AllowAnyOrigin()
@@ -106,12 +132,12 @@ namespace API
                 .AllowAnyHeader());
 
             app.UseAuthentication();
-           // app.UseAuthorization();
+            app.UseAuthorization();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllers();
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

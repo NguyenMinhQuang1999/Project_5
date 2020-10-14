@@ -38,10 +38,10 @@ export const mainRoutes: Routes = [
          import('../main/product/product.module').then(
             (m) => m.ProductModule
           ),
-        canActivate: [RoleGuard],
-        data: {roles: [Role.Admin, Role.User]}
+        // canActivate: [RoleGuard],
+        // data: {roles: [Role.Admin, Role.User]}
       },
-      {path: '**', component: NotFoundComponent}
+    //  {path: '**', component: NotFoundComponent}
     ],
   },
 ];

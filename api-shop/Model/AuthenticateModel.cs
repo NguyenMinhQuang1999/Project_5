@@ -8,8 +8,8 @@ namespace Model
     public class AuthenticateModel
     {
         [Required]
-        public string Username {set; get;}
+        public string username {set; get;}
         [Required]
-        public string Password { set; get; }
+        public string password { set; get; }
     }
 }

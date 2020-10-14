@@ -38,25 +38,44 @@ namespace BLL
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role)
+                    new Claim(ClaimTypes.Name, user.name.ToString()),
+                    new Claim(ClaimTypes.Role, user.role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
+            user.token = tokenHandler.WriteToken(token);
 
-            return user.WithoutPassword();
+            return user;
 
         }
         public IEnumerable<UserModel> GetAll()
         {
             return _res.GetAll();
         }
-        public UserModel GetById(int id)
+        public UserModel GetById(string id)
         {
             return _res.GetById(id);
+        }
+
+
+        public bool Create(UserModel model)
+        {
+            return _res.Create(model);
+        }
+        public bool Update(UserModel model)
+        {
+            return _res.Update(model);
+        }
+
+        public bool Delete(string id)
+        {
+            return _res.Delete(id);
+        }
+        public List<UserModel> Search(int pageIndex, int pageSize, out long total, string hoten, string taikhoan)
+        {
+            return _res.Search(pageIndex, pageSize, out total, hoten, taikhoan);
         }
     }
 

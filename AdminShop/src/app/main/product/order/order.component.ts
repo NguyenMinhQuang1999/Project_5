@@ -37,16 +37,6 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
-
   }
 
  ViewDetail(id) {

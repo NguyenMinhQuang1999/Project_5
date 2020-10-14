@@ -90,7 +90,7 @@ namespace DAL
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thongke-theo-thang");
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thongke_theo_thang");
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 return dt.ConvertTo<int>().ToList();

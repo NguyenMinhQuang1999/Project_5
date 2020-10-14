@@ -6,13 +6,13 @@ namespace Model
 {
    public class UserModel
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
-        public string Token { get; set; }
+        public string user_id { get; set; }
+        public string name{ get; set; }
+        public DateTime? date { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string role { get; set; }
+        public string token { get; set; }
       //  public string image_url { get; set; }
     }
 }

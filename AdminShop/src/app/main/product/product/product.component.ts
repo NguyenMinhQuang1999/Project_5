@@ -17,7 +17,7 @@ declare var $: any;
 
 export class ProductComponent extends BaseComponent implements OnInit {
 
-  constructor(injector: Injector, private fb: FormBuilder, private messageService: MessageService, private confirmationService: ConfirmationService) {
+  constructor(injector: Injector, private fb: FormBuilder) {
     super(injector);
   }
 
@@ -93,16 +93,10 @@ export class ProductComponent extends BaseComponent implements OnInit {
       this._api.get('api/product/delete-product/' + id)
     ).takeUntil(this.unsubcribe).subscribe(
       res => {
-         this.confirmationService.confirm({
-            message: 'Are you sure you want to delete the selected products?',
-            header: 'Confirm',
-            icon: 'pi pi-exclamation-triangle',
-            accept: () => {
+
                 this.products = this.products.filter(val => val.product_id !== id);
 
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
-            }
-        });
+
 
         }
       )
