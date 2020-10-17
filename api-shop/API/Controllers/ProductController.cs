@@ -29,7 +29,7 @@ namespace API.Controllers
         }
 
     
-        [Route("update-product")]
+        [Route("update-product/{id}")]
         [HttpPost]
         public ProductModel Edit(string id, [FromBody] ProductModel model)
         {

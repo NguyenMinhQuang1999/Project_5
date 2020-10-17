@@ -60,7 +60,8 @@
               <tbody>
 
 
-                <ng-container *ngFor="let item of products; let i = index">
+                <ng-container *ngFor="let item of products  ;
+              let i = index">
 
                   <tr>
                       <td>
@@ -123,22 +124,26 @@
             </div>
 
             <div class="modal-body">
-                 <input type="text" formControlName="product_id" [value]="product.product_id" class="form-control" >
+
+                 <input type="hidden" formControlName="product_id"   class="form-control" >
 
               <div class="form-group">
                <label for=""> Tên sản phẩm *</label>
-               <input type="text" formControlName="name" class="form-control" >
+               <input type="text" formControlName="name" class="form-control"
+
+                >
+
              </div>
 
              <div class="row col-md-12">
                 <div class="form-group col-md-4">
                <label for=""> Số lượng *</label>
-               <input type="number" formControlName="quantity" class="form-control" >
+               <input type="number" formControlName="quantity"  class="form-control" >
              </div>
 
               <div class="form-group col-md-4">
                <label for=""> Giá *</label>
-               <input type="number" formControlName="price" class="form-control" >
+               <input type="number" formControlName="price"  class="form-control" >
              </div>
 
               <div class="form-group col-md-4">
@@ -147,11 +152,9 @@
              </div>
              </div>
 
-
-
               <div class="form-group">
                <label for=""> Mô tả *</label>
-                <textarea  formControlName="description" class="form-control" cols="6" rows="5"></textarea>
+                <textarea  formControlName="description" class="form-control"  cols="6" rows="5"></textarea>
              </div>
 
               <div class="form-group">
@@ -159,23 +162,33 @@
                <textarea  formControlName="detail" class="form-control" cols="6" rows="5"></textarea>
              </div>
 
-              <div class="form-group">
-               <label for="">Ảnh *</label>
-               <input type="file" formControlName="image" class="form-control" >
-             </div>
+               <div class="form-group">
+              <label class="col-md-4 control-label no-padding-right"> Ảnh đại diện</label>
+              <div class="col-md-12">
+                <p-fileUpload #file_image mode="advanced"  [showUploadButton]="false" cancelLabel="Hủy" chooseLabel ="Chọn ảnh"   multiple="false" accept="image/*" maxFileSize="1000000">
+                    <!-- <ng-template pTemplate="content">
+                        <img *ngIf="user && user.image_url" style="height: 100px;width: 100px;" [src]="user.image_url">
+                    </ng-template> -->
+              </p-fileUpload>
+
+              </div>
+            </div>
 
               <div class="form-group">
                <label for=""> Danh mục*</label>
              <select formControlName="category_id" class="form-control">
-               <option selected value="93b25b4e-7e6f-4acb-aa26-7c0e456ff94d">Iphone</option>
-               <option value="2">SamSung </option>
+               <ng-container *ngFor="let c of category">
+
+               <option  value="c.id">{{ c.name }}</option>
+
+               </ng-container>
              </select>
              </div>
                <div class="form-group">
                <label for="">Trạng thái *</label>
              <select formControlName="status" class="form-control">
-               <option value=0 >Ẩn </option>
-               <option selected  value=1>Hiện </option>
+               <option selected value=1>Hiện</option>
+               <option value=0>Ẩn </option>
              </select>
              </div>
 

@@ -6,6 +6,7 @@ import { AfterViewInit, Component, OnInit, Renderer2 } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
+
   title = 'AdminShop';
   ngOnInit(){}
   constructor(private renderer: Renderer2) { }

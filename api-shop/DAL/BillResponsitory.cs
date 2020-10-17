@@ -27,7 +27,7 @@ namespace DAL
                 "@total", model.total,
                 "@address", model.address,
                 "@phone", model.phone,
-                "@customer_id", model.customer_id,
+             //   "@customer_id", model.customer_id,
                 "@listjson_chitiet", model.listjson_chitiet != null ? MessageConvert.SerializeObject(model.listjson_chitiet) : null);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
@@ -85,7 +85,7 @@ namespace DAL
             }
         }
 
-        public List<int> ThongKeDoanhThuTheoThang()
+        public Thang ThongKeDoanhThuTheoThang()
         {
             string msgError = "";
             try
@@ -93,7 +93,7 @@ namespace DAL
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thongke_theo_thang");
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<int>().ToList();
+                return dt.ConvertTo<Thang>().FirstOrDefault();
             }
             catch (Exception ex)
             {

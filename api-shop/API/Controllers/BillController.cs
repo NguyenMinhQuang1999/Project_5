@@ -67,7 +67,7 @@ namespace API.Controllers
 
         [Route("doanh-thu-theo-thang")]
         [HttpGet]
-        public List<int> DoanhThuTheoThang()
+        public Thang DoanhThuTheoThang()
         {
             return _hoaDonBusiness.ThongKeDoanhThuTheoThang();
         }

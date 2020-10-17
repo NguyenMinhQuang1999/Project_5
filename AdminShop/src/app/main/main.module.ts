@@ -12,6 +12,9 @@ import { SharedModule } from '../shared/shared.module';
 import { UnauthorizedComponent } from '../shared/unauthorized/unauthorized.component';
 import { RoleGuard } from '../common/auth.guard';
 import { Role } from '../models/role';
+import { HighchartsChartComponent } from 'highcharts-angular';
+import { ChartModule } from 'primeng/chart';
+
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -26,11 +29,11 @@ export const mainRoutes: Routes = [
         component: UnauthorizedComponent
       },
       {
-        path: 'user',
+        path: 'users',
         loadChildren: () =>
           import('../main/user/user.module').then((m) => m.UserModule),
-        canActivate: [RoleGuard],
-        data: {roles: [Role.Admin]}
+       canActivate: [RoleGuard],
+       data: {roles: [Role.Admin]}
       },
       {
         path: 'manager',
@@ -38,8 +41,8 @@ export const mainRoutes: Routes = [
          import('../main/product/product.module').then(
             (m) => m.ProductModule
           ),
-        // canActivate: [RoleGuard],
-        // data: {roles: [Role.Admin, Role.User]}
+        canActivate: [RoleGuard],
+       data: {roles: [Role.Admin, Role.User]}
       },
     //  {path: '**', component: NotFoundComponent}
     ],
@@ -48,12 +51,14 @@ export const mainRoutes: Routes = [
 
 @NgModule({
   declarations: [
+  //  HighchartsChartComponent,
     SidebarComponent,
     FooterComponent,
     NavbarComponent,
     MainComponent,
     NotFoundComponent,
+    DashboardComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(mainRoutes),SharedModule ],
+  imports: [CommonModule, RouterModule.forChild(mainRoutes),SharedModule , ChartModule,]
 })
 export class MainModule {}

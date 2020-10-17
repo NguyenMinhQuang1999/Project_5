@@ -756,8 +756,10 @@
             <article class="list-product">
               <div class="img-block">
                 <a href="single-product.html" class="thumbnail">
-                  <img class="first-img" src="assets/images/product-image/6.jpg" alt="" />
-                  <img class="second-img" src="assets/images/product-image/7.jpg" alt="" />
+
+
+                  <img class="first-img" [src]="'assets/phukien/tainghe/'+item.image" alt="" />
+                  <img class="second-img" [src]="'assets/phukien/tainghe/'+item.image" alt="" />
                 </a>
                 <div class="quick-view">
                   <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal"

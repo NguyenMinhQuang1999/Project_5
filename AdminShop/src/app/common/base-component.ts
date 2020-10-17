@@ -7,6 +7,11 @@ import { ApiService } from './api_service';
 export class BaseComponent {
   public genders: any;
   public locale_vn: any;
+  public roles: any;
+  public today: any;
+  public dateFormat: any;
+
+
 
   public unsubcribe = new Subject();
   public _renderer: any;
@@ -14,11 +19,16 @@ export class BaseComponent {
   public _route: ActivatedRoute;
 
   constructor(injector: Injector) {
+    this.today = new Date();
+    this.dateFormat = "dd/mm/yy";
     this._renderer = injector.get(Renderer2);
     this._api = injector.get(ApiService);
     this._route = injector.get(ActivatedRoute);
 
-
+     this.roles =  [
+            {label:'Admin',value:'Admin'},
+            {label:'User',value:'User'}
+          ];
     this.genders = [
       { label: 'Nam', value: 'Nam' },
       { label: 'Nữ', value: 'Nữ' },
@@ -68,6 +78,9 @@ export class BaseComponent {
       today: 'Hôm nay',
       clear: 'Xóa',
     };
+
+      this._api = injector.get(ApiService);
+      this._route = injector.get(ActivatedRoute);
   }
 
 
@@ -75,6 +88,7 @@ export class BaseComponent {
   //        this.renderExternalScript('assets/js/main.js').onload = () => {
   //        }
   //      }
+
    public renderExternalScript(src: string): HTMLScriptElement {
          const script = document.createElement('script');
          script.type = 'text/javascript';

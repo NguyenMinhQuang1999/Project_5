@@ -38,7 +38,7 @@ namespace BLL
         {
             return _res.GetBillByID(id);
         }
-        public List<int> ThongKeDoanhThuTheoThang()
+        public Thang ThongKeDoanhThuTheoThang()
         {
             return _res.ThongKeDoanhThuTheoThang();
         }

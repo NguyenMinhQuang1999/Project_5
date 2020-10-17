@@ -11,11 +11,16 @@ import { LoginComponent } from './login/login.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorInterceptor } from './common/error.interceptor';
 import { JwtInterceptor } from './common/jwt.interceptor';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap' ;
+import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+   // HighchartsChartComponent
 
   ],
   imports: [
@@ -25,9 +30,13 @@ import { JwtInterceptor } from './common/jwt.interceptor';
     HttpClientModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    ConfirmDialogModule,
+   // HighchartsChartModule
+
+
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },],
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },MessageService, ConfirmationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

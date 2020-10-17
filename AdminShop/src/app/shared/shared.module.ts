@@ -29,6 +29,8 @@ import { ConfirmationService } from 'primeng/api';
 import { MessageService } from 'primeng/api';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
+import { MessagesModule } from 'primeng/messages';
+import { ChartModule } from 'primeng/chart';
 @NgModule({
   declarations: [
 
@@ -57,6 +59,9 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
+    ChartModule
+
+
   ],
   exports: [
     ReactiveFormsModule,
@@ -82,6 +87,8 @@ import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
+    ChartModule
+
 
 
   ]

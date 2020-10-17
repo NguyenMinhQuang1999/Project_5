@@ -36,6 +36,7 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
       name: value.name,
       address: value.address,
       phone: value.phone,
+    //  customer_id: 0,
       total: this.total,
       listjson_chitiet: this.items,
     };
