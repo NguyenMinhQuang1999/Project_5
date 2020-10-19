@@ -4,8 +4,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FileUpload } from 'primeng/fileupload';
 import { RowToggler } from 'primeng/table';
 import 'rxjs/add/operator/takeUntil';
-import { BaseComponent } from 'src/app/common/base-component';
-import { MustMatch } from 'src/app/helpers/must-match.validator';
+import { BaseComponent } from '../../../common/base-component';
+import { MustMatch } from '../../../helpers/must-match.validator';
 declare var $: any;
 @Component({
   selector: 'app-user',

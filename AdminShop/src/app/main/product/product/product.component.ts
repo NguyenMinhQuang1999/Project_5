@@ -1,12 +1,13 @@
-import { Component, Injector, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser'
+import { Component, Injector, OnInit, ViewChild } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import { BaseComponent } from 'src/app/common/base-component';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/takeUntil';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { SharedModule } from '../../../shared/shared.module';
+
+import { FileUpload } from 'primeng/fileupload';
 
 declare var $: any;
 @Component({
@@ -23,7 +24,6 @@ export class ProductComponent extends BaseComponent implements OnInit {
   }
 
         formData: any;
-
         name: any;
         category_id: any;
         quantity: any;
@@ -34,32 +34,46 @@ export class ProductComponent extends BaseComponent implements OnInit {
         detail: any;
         status: any;
         message: any;
+        submitted: any = false;
 
 
         products: any;
         product: any;
-  category: any;
+
+        category: any;
+
+  public pageSize = 3;
+  public page = 1;
+  public uploadedFiles: any[] = [];
+  public formsearch: any;
+  totalRecords: any;
+
+  @ViewChild(FileUpload, { static: false }) file_image: FileUpload;
 
 
 
 
 
 
+ get f() { return this.formData.controls };
 
+  ngOnInit(): void {
 
-        ngOnInit(): void {
+    this.formsearch = this.fb.group({
+      'category_id': ['']
+    });
 
-          this.formData = this.fb.group({
+        this.formData = this.fb.group({
         product_id : [''],
-        name: ['', Validators.required],
-        category_id:  [''],
-        quantity:  [''],
-        price:  [''],
+        name: ['', Validators.required,],
+        category_id:  ['', Validators.required],
+        quantity:  ['', Validators.required],
+        price:  ['', Validators.required],
         promotion_price: [''],
-        image: [''],
+        image_url: [''],
         description:  [''],
         detail: [''],
-        status:  [''],
+        status:  ['', Validators.required],
           });
 
 
@@ -111,28 +125,28 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
         update(id: any) {
 
+
             Observable.combineLatest(
             this._api.get('api/product/get-by-id/'+id)
-          ).takeUntil(this.unsubcribe).subscribe(
+          ).subscribe(
             res => {
               this.product = res[0];
               console.log(this.product);
               this.category_id = this.product.category_id;
               setTimeout(() => {
-
-                //this.product_id = this.product.product_id;
                 this.formData.controls['product_id'].setValue(this.product.product_id);
-                this.formData.controls['name'].setValue(this.product.product_id);
+                this.formData.controls['name'].setValue(this.product.name);
                 this.formData.controls['quantity'].setValue(this.product.quantity);
                 this.formData.controls['price'].setValue(this.product.price);
                 this.formData.controls['promotion_price'].setValue(this.product.promotion_price);
                 this.formData.controls['description'].setValue(this.product.description);
                 this.formData.controls['detail'].setValue(this.product.detail);
-                // this.formData.controls['product_id'].setValue(this.product.product_id);
-                // this.formData.controls['product_id'].setValue(this.product.product_id);
+                this.formData.controls['category_id'].setValue(this.product.category_id);
+                this.formData.controls['status'].setValue(this.product.status);
                 $(".modal-title").html("Sửa sản phẩm");
                 $('#formModal').modal('toggle');
-               // this.formData.reset();
+              //  this.formData.reset();
+
 
               });
 
@@ -140,94 +154,93 @@ export class ProductComponent extends BaseComponent implements OnInit {
           )
         }
 
-        updateProduct(id: any, value:any) {
 
-          Observable.combineLatest(
-            this._api.put('api/product/update-product/' + id, {
-            name: value.name,
-            category_id: value.category_id,
-            quantity: +value.quantity,
-            price: +value.price,
-            promotion_price: +value.promotion_price,
-            image: value.image,
-            description: value.description,
-            detail: value.detail,
-            status: +value.status,
-            },)
-          ).takeUntil(this.unsubcribe).subscribe(
-            res => {
-
-            }
-          )
-        }
 
 
         //Show modal
-  create() {
-    this.formData.reset();
-       $(".modal-title").html("Thêm sản phẩm");
+   create() {
+        this.formData.reset();
+        $(".modal-title").html("Thêm sản phẩm");
         $('#formModal').modal('toggle');
         }
 
-      findIndexById(id: string): number {
+
+  onSubmitCreate(value: any) {
+    this.submitted = true;
+          if (value.product_id == null) {
+            this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
+              let data_image = data == '' ? null : data;
+              console.log(value);
+              this._api.post('api/product/create-product', {
+                name: value.name,
+                image_url: data_image,
+                category_id: value.category_id,
+                quantity: +value.quantity,
+                price: +value.price,
+                promotion_price: +value.promotion_price,
+                description: value.description,
+                detail: value.detail,
+                status: +value.status,
+              }).takeUntil(this.unsubcribe).subscribe((res) => {
+                this.message = res;
+                this.products.unshift(this.message);
+                $("#formModal").modal('hide');
+              });
+            });
+          } else {
+            console.log(value);
+            this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
+              let data_image = data == '' ? null : data;
+              this._api.post('api/product/update-product/' + value.product_id, {
+                name: value.name,
+                category_id: value.category_id,
+                quantity: +value.quantity,
+                price: +value.price,
+                promotion_price: +value.promotion_price,
+                image_url: data_image,
+                description: value.description,
+                detail: value.detail,
+                status: +value.status,
+              }).takeUntil(this.unsubcribe).subscribe((res) => {
+                this.message = res;
+                   this.products[this.findIndexById(this.message.product_id)] = this.message;
+               //   location.reload();
+                $("#formModal").modal('hide');
+              });
+            });
+          }
+
+
+
+  }
+
+  search() {
+    this.page = 1;
+    this.pageSize = 5;
+    this._api.post('api/product/search', { page: this.page, pageSize: this.pageSize, category_id: this.formsearch.get('category_id') })
+      .takeUntil(this.unsubcribe).subscribe(
+        res => {
+          this.products = res.data;
+          this.totalRecords = res.totalRecords;
+          this.pageSize = res.pageSize;
+        }
+      );
+  }
+
+   findIndexById(id: number): number {
         let index = -1;
         for (let i = 0; i < this.products.length; i++) {
-            if (this.products[i].id === id) {
+            if (this.products[i].product_id == id) {
                 index = i;
-              break;
-
-          }
-          return index;
-          }
+                break;
+            }
         }
 
-        onSubmitCreate(value: any) {
-          if (value.product_id == null) {
-           // this.formData.reset();
-
-           console.log(value);
-          this._api.post('api/product/create-product', {
-            name: value.name,
-            category_id: value.category_id,
-            quantity: +value.quantity,
-            price: +value.price,
-            promotion_price: +value.promotion_price,
-            image: value.image,
-            description: value.description,
-            detail: value.detail,
-            status: +value.status,
-          }).takeUntil(this.unsubcribe).subscribe((res) => {
-            this.message = res;
-          // location.reload();
-            this.products.push(this.message);
-           // this.formData.reset();
-            $("#formModal").modal('hide');
-          });
-          } else {
-             console.log(value);
-          this._api.post('api/product/update-product/' + value.product_id, {
-            name: value.name,
-            category_id: value.category_id,
-            quantity: +value.quantity,
-            price: +value.price,
-            promotion_price: +value.promotion_price,
-            image: value.image,
-            description: value.description,
-            detail: value.detail,
-            status: +value.status,
-          }).takeUntil(this.unsubcribe).subscribe((res) => {
-            this.message = res;
-        //  location.reload();
-         //   this.products = this.products;
-          //  this.formData.reset();
-            $("#formModal").modal('hide');
-          });
-          }
+        return index;
+    }
 
 
-
-          }
-        }
+ }
 
 
 

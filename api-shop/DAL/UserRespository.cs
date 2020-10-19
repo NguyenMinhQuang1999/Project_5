@@ -105,7 +105,7 @@ namespace DAL
                 "@username", model.username,
                 "@password", model.password,
                 "@role", model.role,
-                "@token", model.token);
+                "@address", model.address);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);
@@ -131,7 +131,7 @@ namespace DAL
                 "@username", model.username,
                 "@password", model.password,
                 "@role", model.role,
-                "@token", model.token);
+                "@adreess", model.address);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);

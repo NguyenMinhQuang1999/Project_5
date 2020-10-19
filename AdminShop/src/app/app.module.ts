@@ -31,6 +31,7 @@ import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angu
     BrowserAnimationsModule,
     ReactiveFormsModule,
     ConfirmDialogModule,
+    NgbModule,
    // HighchartsChartModule
 
 

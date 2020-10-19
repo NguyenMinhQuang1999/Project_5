@@ -11,7 +11,7 @@ import {FileUploadModule} from 'primeng/fileupload';
 
 
 import {ToastModule} from 'primeng/toast';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SliderModule} from 'primeng/slider';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {ContextMenuModule} from 'primeng/contextmenu';
@@ -59,7 +59,8 @@ import { ChartModule } from 'primeng/chart';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
-    ChartModule
+    ChartModule,
+    NgbModule
 
 
   ],
@@ -87,7 +88,10 @@ import { ChartModule } from 'primeng/chart';
     InputNumberModule,
     ConfirmDialogModule,
     InputTextareaModule,
-    ChartModule
+    ChartModule,
+    NgbModule
+
+
 
 
 

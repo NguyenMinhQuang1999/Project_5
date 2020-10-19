@@ -24,7 +24,7 @@ namespace DAL
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_product_create",
                 
                 "@name", model.name,
-                "@image", model.image,
+                "@image_url", model.image_url,
                 "@price", model.price,
                 "@quantity", model.quantity,
                 "@promotion_price", model.promotion_price,
@@ -52,7 +52,7 @@ namespace DAL
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_product_update",
                 "@product_id", id,
                 "@name", model.name,
-                "@image", model.image,
+                "@image_url", model.image_url,
                 "@price", model.price,
                 "@quantity", model.quantity,
                 "@promotion_price", model.promotion_price,
@@ -132,6 +132,7 @@ namespace DAL
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_search",
                     "@page_index", pageIndex,
                     "@page_size", pageSize,
+                    
                     "@category_id", category_id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);

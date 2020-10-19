@@ -8,7 +8,7 @@ namespace Model
     {
         public int product_id { set; get; }
         public string name { set; get; }
-        public string image { set; get; }
+        public string image_url { set; get; }
         public int? price { set; get; }
         public int? quantity { set; get; }
         public int? promotion_price { set; get; }
