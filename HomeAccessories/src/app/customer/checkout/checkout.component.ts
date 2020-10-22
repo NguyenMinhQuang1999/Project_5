@@ -18,8 +18,8 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.hoadonForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      address: new FormControl(''),
-      phone: new FormControl(''),
+      address: new FormControl('', Validators.required),
+      phone: new FormControl('', Validators.minLength(10)),
     });
     this._cart.items.subscribe((res) => {
       this.items = res;
