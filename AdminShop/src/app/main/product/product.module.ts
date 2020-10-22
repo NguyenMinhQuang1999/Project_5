@@ -7,6 +7,8 @@ import { SharedModule } from 'primeng/api';
 import { OrderComponent } from './order/order.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'primeng/fileupload';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 
@@ -27,7 +29,9 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
-    FileUploadModule
+    FileUploadModule,
+    NgxPaginationModule,
+    EditorModule
 
 
 

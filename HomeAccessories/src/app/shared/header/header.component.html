@@ -71,18 +71,19 @@
                         <div class="search-category">
                           <select>
                             <option value="0">Danh mục</option>
-                            <option value="12">Laptop</option>
-
+                            <ng-container *ngFor="let i of categories">
+                            <option><a [routerLink]="['/product/list-item', i.category_id]">{{ i.name }}</a></option>
+                            </ng-container>
 
                           </select>
                         </div>
-                        <input type="text" placeholder="Hãy nhập thông tin để tìm kiếm ... " />
-                        <button><i class="icon-magnifier"></i></button>
+                        <input type="text" placeholder="Hãy nhập thông tin... " />
+                        <button routerLink="/search"><i class="icon-magnifier"></i></button>
                       </form>
                     </div>
                     <div class="contact-link">
                       <div class="phone">
-                        <p>Call us:</p>
+                        <p>Gọi cho chúng tôi:</p>
                         <a href="tel:(+800)345678">039.283.8832</a>
                       </div>
                     </div>
@@ -92,7 +93,7 @@
                         <a href="compare.html" class="shuffle" data-number="3"><i class="icon-shuffle"></i></a>
                         <a href="#offcanvas-wishlist" class="heart offcanvas-toggle" data-number="3"><i
                             class="icon-heart"></i></a>
-                        <a routerLink="/customer/cart" class="bag offcanvas-toggle" id="total"   data-number="3"><i
+                        <a routerLink="/customer/cart" class="bag offcanvas-toggle" id="total" data-number="0"><i
                             class="icon-bag"></i><span></span></a>
                       </div>
                     </div>

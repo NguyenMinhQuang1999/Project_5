@@ -34,7 +34,7 @@ namespace BLL
             return _res.GetAllBill();
         }
 
-        public BillDetailModel GetBillByID(string id)
+        public List<BillDetailModel> GetBillByID(string id)
         {
             return _res.GetBillByID(id);
         }

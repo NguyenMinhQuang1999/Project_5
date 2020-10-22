@@ -15,7 +15,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap' ;
 import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angular';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,6 +33,7 @@ import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angu
     ConfirmDialogModule,
     NgbModule,
    // HighchartsChartModule
+     NgxPaginationModule
 
 
   ],

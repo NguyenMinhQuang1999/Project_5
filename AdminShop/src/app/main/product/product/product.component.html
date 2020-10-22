@@ -72,7 +72,7 @@
                       <td>
                          {{item.name}}
                       </td>
-                      <td><img src="http://www.placecage.com/c/100/100" style="width:80px ;height:80px" alt="Image"></td>
+                      <td><img src="assets/image/{{item.image_url}}" style="width:80px ;height:80px" alt="Image"></td>
                       <td>{{item.quantity|number}}</td>
                       <td>
                         {{item.price | currency:"VND"}}
@@ -112,7 +112,9 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-
+      <div>
+         <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->
+      </div>
     </section>
     <!-- /.content -->
   </div>
@@ -172,13 +174,14 @@
 
               <div class="form-group">
                <label for=""> Mô tả *</label>
-                <textarea  formControlName="description" class="form-control"  cols="6" rows="5"></textarea>
 
+                <editor  formControlName="description" apiKeey="test" formControlName="detail" [init]="{plugins: 'link'}"></editor>
              </div>
 
               <div class="form-group">
                <label for=""> Chi tiết *</label>
-               <textarea  formControlName="detail" class="form-control" cols="6" rows="5"></textarea>
+               <!-- <textarea id="mytextarea" formControlName="detail" class="form-control" cols="6" rows="5"></textarea> -->
+                <editor apiKeey="test" formControlName="detail" [init]="{plugins: 'link'}"></editor>
              </div>
 
                <div class="form-group">
@@ -186,7 +189,7 @@
               <div class="col-md-12">
                 <p-fileUpload #file_image mode="advanced"  [showUploadButton]="false" cancelLabel="Hủy" chooseLabel ="Chọn ảnh"   multiple="false" accept="image/*" maxFileSize="1000000">
                     <ng-template pTemplate="content">
-                        <img *ngIf="product && product.image_url" style="height: 100px;width: 100px;" [src]="product.image_url">
+                        <img *ngIf="product && product.image_url" style="height: 100px;width: 100px;" src="assets/image/{{product.image_url}}">
                     </ng-template>
               </p-fileUpload>
 
@@ -237,6 +240,8 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
+
+
 
 
 

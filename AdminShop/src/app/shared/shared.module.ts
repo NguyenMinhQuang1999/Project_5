@@ -31,11 +31,14 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 import { MessagesModule } from 'primeng/messages';
 import { ChartModule } from 'primeng/chart';
+import { NgxPaginationModule } from 'ngx-pagination';
+ import { EditorModule } from '@tinymce/tinymce-angular';
 @NgModule({
   declarations: [
 
   UnauthorizedComponent],
   imports: [
+   EditorModule,
     FormsModule,
     PanelModule,
     CommonModule,
@@ -89,7 +92,9 @@ import { ChartModule } from 'primeng/chart';
     ConfirmDialogModule,
     InputTextareaModule,
     ChartModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule,
+    EditorModule
 
 
 

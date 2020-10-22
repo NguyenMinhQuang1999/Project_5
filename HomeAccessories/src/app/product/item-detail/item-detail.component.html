@@ -23,11 +23,11 @@
            <div class="product-details-img product-details-tab">
              <div class="zoompro-wrap zoompro-2">
                <div class="zoompro-border zoompro-span">
-                 <img class="zoompro" src="assets/images/product-image/22.jpg"
-                   data-zoom-image="assets/images/product-image/zoom/1.jpg" alt="" />
+                 <img style="width:300px; height:300px" src="assets/image/{{product.image_url}}"
+                    alt="" />
                </div>
              </div>
-             <div id="gallery" class="product-dec-slider-2 swiper-container">
+             <!-- <div id="gallery" class="product-dec-slider-2 swiper-container">
                <div class="swiper-wrapper">
                  <div class="swiper-slide">
                    <a class="active" data-image="assets/images/product-image/22.jpg"
@@ -54,7 +54,7 @@
                    </a>
                  </div>
                </div>
-             </div>
+             </div> -->
            </div>
          </div>
          <div class="col-xl-6 col-lg-6 col-md-12">
@@ -136,30 +136,20 @@
      <div class="container">
        <div class="description-review-wrapper">
          <div class="description-review-topbar nav">
-           <a data-toggle="tab" href="#des-details1">Description</a>
-           <a class="active" data-toggle="tab" href="#des-details2">Product Details</a>
-           <a data-toggle="tab" href="#des-details3">Reviews (2)</a>
+           <a data-toggle="tab" href="#des-details1">Mô tả</a>
+           <a class="active" data-toggle="tab" href="#des-details2">Chi tiết</a>
+           <a data-toggle="tab" href="#des-details3">Bình luận (2)</a>
          </div>
          <div class="tab-content description-review-bottom">
            <div id="des-details2" class="tab-pane active">
              <div class="product-anotherinfo-wrapper">
-               <ul>
-                 <li><span>Weight</span> 400 g</li>
-                 <li><span>Dimensions</span>10 x 10 x 15 cm</li>
-                 <li><span>Materials</span> 60% cotton, 40% polyester</li>
-                 <li><span>Other Info</span> American heirloom jean shorts pug seitan letterpress</li>
-               </ul>
+
+               {{ product.detail}}
              </div>
            </div>
            <div id="des-details1" class="tab-pane">
              <div class="product-description-wrapper">
-               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor incididunt</p>
-               <p>
-                 ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                 nisi ut aliquip ex ea commo consequat. Duis aute irure dolor in reprehend in voluptate velit esse
-                 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-                 qui officia deserunt
-               </p>
+           {{product.description}}
              </div>
            </div>
            <div id="des-details3" class="tab-pane">
@@ -289,8 +279,8 @@
              <article class="list-product">
                <div class="img-block">
                  <a href="single-product.html" class="thumbnail">
-                   <img class="first-img" src="assets/images/product-image/6.jpg" alt="" />
-                   <img class="second-img" src="assets/images/product-image/7.jpg" alt="" />
+                   <img class="first-img" src="assets/image/{{p.image_url}}" alt="" />
+                   <img class="second-img" src="assets/image/{{p.image_url}}" alt="" />
                  </a>
                  <div class="quick-view">
                    <a class="quick_view" href="#" data-link-action="quickview" title="Quick view" data-toggle="modal"
@@ -320,7 +310,7 @@
                </div>
                <div class="add-to-link">
                  <ul>
-                   <li class="cart"><a class="cart-btn" (click)="addToCart(p)">Thêm vào giỏ hàng</a></li>
+              <li class="cart"><a  title="Thêm vào giỏ hàng" (click)="addToCart(p)"><i class="icon-bag"></i></a></li>
                    <li>
                      <a href="wishlist.html"><i class="icon-heart"></i></a>
                    </li>

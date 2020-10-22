@@ -13,6 +13,6 @@ namespace DAL
 
        Thang ThongKeDoanhThuTheoThang();
          List<BillModel> GetAllBill();
-        BillDetailModel GetBillByID(string id);
+        List<BillDetailModel> GetBillByID(string id);
     }
 }

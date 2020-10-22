@@ -12,6 +12,6 @@ namespace BLL
         bool changeStatus(string id, string msg);
     Thang ThongKeDoanhThuTheoThang();
         List<BillModel> GetAllBill();
-        BillDetailModel GetBillByID(string id);
+        List<BillDetailModel> GetBillByID(string id);
     }
 }

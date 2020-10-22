@@ -118,7 +118,7 @@ namespace DAL
             }
         }
 
-        public BillDetailModel GetBillByID(string id)
+        public List<BillDetailModel> GetBillByID(string id)
         {
             string msgError = "";
             try
@@ -126,7 +126,7 @@ namespace DAL
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_get_bill_detail", "@bill_id", id);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
-                return dt.ConvertTo<BillDetailModel>().FirstOrDefault();
+                return dt.ConvertTo<BillDetailModel>().ToList();
             }
             catch(Exception ex)
             {

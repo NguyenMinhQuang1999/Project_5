@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoryComponent } from './shared/category/category.component';
+import { SearchComponent } from './search/search.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { CategoryComponent } from './shared/category/category.component';
     HeaderComponent,
     CategoryComponent,
     FooterComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

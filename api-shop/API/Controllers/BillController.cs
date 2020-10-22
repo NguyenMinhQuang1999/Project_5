@@ -35,8 +35,8 @@ namespace API.Controllers
         }
 
         [Route("get-bill-detail/{id}")]
-        [HttpGet] 
-        public BillDetailModel GetBillDetail(string id)
+        [HttpGet]
+        public List<BillDetailModel> GetBillDetail(string id)
         {
             return _hoaDonBusiness.GetBillByID(id);
         }

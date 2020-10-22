@@ -58,7 +58,7 @@ namespace API.Controllers
                 var arrData = model.image_url.Split(';');
                 if(arrData.Length == 3)
                 {
-                    var savePath = $@"assets/phukien/images/{arrData[0]}";
+                    var savePath = $@"{arrData[0]}";
                     model.image_url = $"{savePath}";
                     SaveFileFromBase64String(savePath, arrData[2]);
                 }
@@ -77,7 +77,7 @@ namespace API.Controllers
                 var arrData = model.image_url.Split(';');
                 if (arrData.Length == 3)
                 {
-                    var savePath = $@"assets/phukien/images/{arrData[0]}";
+                    var savePath = $@"{arrData[0]}";
                     model.image_url = $"{savePath}";
                     SaveFileFromBase64String(savePath, arrData[2]);
                 }

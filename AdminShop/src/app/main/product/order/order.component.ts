@@ -45,7 +45,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
      Observable.combineLatest(
       this._api.get('api/bill/get-bill-detail/' + id)).takeUntil(this.unsubcribe).subscribe(
         res => {
-          this.order_detail = res;
+          this.order_detail = res[0];
           console.log(this.order_detail);
           setTimeout(() => {
              $('#myBill').modal('toggle');

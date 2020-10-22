@@ -47,6 +47,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
   public uploadedFiles: any[] = [];
   public formsearch: any;
   totalRecords: any;
+  config: any;
 
   @ViewChild(FileUpload, { static: false }) file_image: FileUpload;
 
@@ -57,7 +58,12 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
  get f() { return this.formData.controls };
 
+
   ngOnInit(): void {
+
+
+
+
 
     this.formsearch = this.fb.group({
       'category_id': ['']
@@ -98,15 +104,6 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
       }
 
-        // getProduct(id: any) {
-        //   Observable.combineLatest(
-        //     this._api.get('api/product/get-by-id/'+id)
-        //   ).takeUntil(this.unsubcribe).subscribe(
-        //     res => {
-        //       this.product = res;
-        //     }
-        //   )
-        // }
 
        delete(id: any) {
 
@@ -238,6 +235,8 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
         return index;
     }
+
+
 
 
  }
