@@ -98,10 +98,10 @@ namespace DAL
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_user_create",
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_create_user",
                 "@user_id", model.user_id,
                 "@name", model.name,
-                "@date", model.date,
+              //  "@date", model.date,
                 "@username", model.username,
                 "@password", model.password,
                 "@role", model.role,
@@ -124,14 +124,14 @@ namespace DAL
             string msgError = "";
             try
             {
-                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_user_update",
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_update_user",
                 "@user_id", model.user_id,
                 "@name", model.name,
-                "@date", model.date,
+             //   "@date", model.date,
                 "@username", model.username,
                 "@password", model.password,
                 "@role", model.role,
-                "@adreess", model.address);
+                "@address", model.address);
                 if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
                     throw new Exception(Convert.ToString(result) + msgError);

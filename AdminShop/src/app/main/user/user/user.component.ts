@@ -24,6 +24,8 @@ export class UserComponent extends BaseComponent implements OnInit {
   public doneSetupForm: any;
   public showUpdateModal: any;
   public isCreate: any;
+  public list: any;
+
   submitted = false;
   @ViewChild(FileUpload, { static: false }) file_image: FileUpload;
 
@@ -39,10 +41,16 @@ export class UserComponent extends BaseComponent implements OnInit {
       'username': ['']
     });
     //this.search()
+       this._api.get('api/users/get-all').
+      takeUntil(this.unsubcribe).subscribe(res => {
+        this.list = res;
+        console.log(this.list);
+
+      });
   }
 
   loadPage(page) {
-    this._api.post('/api/users/search', { page: page, pageSize: this.pageSize }).
+    this._api.post('api/users/search', { page: page, pageSize: this.pageSize }).
       takeUntil(this.unsubcribe).subscribe(res => {
         this.users = res.data;
         this.totalRecords = res.totalItems;
@@ -53,7 +61,7 @@ export class UserComponent extends BaseComponent implements OnInit {
   search() {
     this.page = 1;
     this.pageSize = 5;
-    this._api.post('/api/users/search', {
+    this._api.post('api/users/search', {
       page: this.page, pageSize: this.pageSize,
       name: this.formsearch.get('name').value, username: this.formsearch.get('username').value
     }).takeUntil(this.unsubcribe).subscribe(
@@ -64,6 +72,8 @@ export class UserComponent extends BaseComponent implements OnInit {
       }
     );
   }
+
+
 
     pwdCheckValidator(control){
     var filteredStrings = {search:control.value, select:'@#!$%&*'}
@@ -85,7 +95,7 @@ export class UserComponent extends BaseComponent implements OnInit {
       this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
         let data_image = data == '' ? null : data;
         let tmp = {
-          image_url: data_image,
+       //   image_url: data_image,
           name: value.name,
           address: value.address,
           username: value.username,
@@ -93,7 +103,7 @@ export class UserComponent extends BaseComponent implements OnInit {
           role: value.role
 
         };
-        this._api.post('/api/users/create-user', tmp).takeUntil(this.unsubcribe).subscribe(res => {
+        this._api.post('api/users/create-user', tmp).takeUntil(this.unsubcribe).subscribe(res => {
           alert("Add success!");
           this.search();
           this.closeModal();
@@ -104,7 +114,7 @@ export class UserComponent extends BaseComponent implements OnInit {
       this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
         let data_image = data == '' ? null : data;
         let tmp = {
-          image_url: data_image,
+        //  image_url: data_image,
           name: value.name,
           address: value.address,
           username: value.username,
@@ -112,7 +122,7 @@ export class UserComponent extends BaseComponent implements OnInit {
           role: value.role
 
         };
-        this._api.post('/api/users/update-user', tmp).takeUntil(this.unsubcribe).subscribe(
+        this._api.post('api/users/update-user', tmp).takeUntil(this.unsubcribe).subscribe(
           res => {
             alert("Update success!");
             this.search();
@@ -125,7 +135,7 @@ export class UserComponent extends BaseComponent implements OnInit {
 
 
   onDelete(row) {
-    this._api.post('/api/users/delete-user', { user_id: row.user_id }).takeUntil(this.unsubcribe).subscribe(
+    this._api.post('api/users/delete-user', { user_id: row.user_id }).takeUntil(this.unsubcribe).subscribe(
       res => {
         alert('Delete success!');
         this.search();
@@ -149,7 +159,7 @@ export class UserComponent extends BaseComponent implements OnInit {
   }
 
   createModal() {
-    this.doneSetupForm = false;
+    //this.doneSetupForm = false;
     this.showUpdateModal = true;
     this.isCreate = true;
     this.user = null;
@@ -179,7 +189,7 @@ export class UserComponent extends BaseComponent implements OnInit {
     this.isCreate = false;
     setTimeout(() => {
       $("#createuserModal").modal("toggle");
-      this._api.get('/api/users/get-by-id/' + row.user_id).takeUntil(this.unsubcribe).subscribe(res => {
+      this._api.get('api/users/get-by-id/' + row.user_id).takeUntil(this.unsubcribe).subscribe(res => {
         this.user = res;
             this.formdata = this.fb.group({
         'name': ['', Validators.required],

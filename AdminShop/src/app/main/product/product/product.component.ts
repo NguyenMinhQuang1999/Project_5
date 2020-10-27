@@ -1,12 +1,10 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-
 import { Observable } from 'rxjs';
 import { BaseComponent } from 'src/app/common/base-component';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/takeUntil';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
 import { FileUpload } from 'primeng/fileupload';
 
 declare var $: any;
@@ -49,21 +47,13 @@ export class ProductComponent extends BaseComponent implements OnInit {
   totalRecords: any;
   config: any;
 
+
   @ViewChild(FileUpload, { static: false }) file_image: FileUpload;
-
-
-
-
-
 
  get f() { return this.formData.controls };
 
 
   ngOnInit(): void {
-
-
-
-
 
     this.formsearch = this.fb.group({
       'category_id': ['']
@@ -105,19 +95,22 @@ export class ProductComponent extends BaseComponent implements OnInit {
       }
 
 
-       delete(id: any) {
+  delete(id: any) {
+    if(confirm("Bạn có muốn chắn chắn xóa không!")){
 
 
-          Observable.combineLatest(
-            this._api.get('api/product/delete-product/' + id)
-          ).takeUntil(this.unsubcribe).subscribe(
-            res => {
+      Observable.combineLatest(
+        this._api.get('api/product/delete-product/' + id)
+      ).takeUntil(this.unsubcribe).subscribe(
+        res => {
 
-                this.products = this.products.filter(val => val.product_id !== id);
-                this.messageService.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
-            }
+          this.products = this.products.filter(val => val.product_id !== id);
+          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+        }
 
-            )}
+      );
+      }
+    }
 
 
         update(id: any) {
@@ -164,6 +157,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
   onSubmitCreate(value: any) {
     this.submitted = true;
+
           if (value.product_id == null) {
             this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
               let data_image = data == '' ? null : data;
@@ -201,7 +195,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
               }).takeUntil(this.unsubcribe).subscribe((res) => {
                 this.message = res;
                    this.products[this.findIndexById(this.message.product_id)] = this.message;
-               //   location.reload();
+                //  location.reload();
                 $("#formModal").modal('hide');
               });
             });

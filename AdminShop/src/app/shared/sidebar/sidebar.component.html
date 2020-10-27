@@ -35,7 +35,7 @@
 
         </li>
         <li class="nav-item">
-        <a [routerLink]="['/manger/product']" class="nav-link">
+        <a [routerLink]="['/manager/product']" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
              Quản lý sản phẩm
@@ -44,7 +44,7 @@
           </a>
         </li>
          <li class="nav-item">
-        <a [routerLink]="['/manger/type']" class="nav-link">
+        <a [routerLink]="['/manager/category']" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
              Quản lý loại sản phẩm
@@ -53,7 +53,7 @@
           </a>
         </li>
          <li class="nav-item">
-        <a [routerLink]="['/manger/order']" class="nav-link">
+        <a [routerLink]="['/manager/order']" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>
              Quản lý đơn hàng
@@ -73,10 +73,10 @@
 
         </li>
         <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
+          <a (click)="logOut()" class="nav-link">
             <i class="nav-icon fas fa-chart-pie"></i>
             <p>
-             Thống kê, báo cáo
+           Đăng xuất
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>

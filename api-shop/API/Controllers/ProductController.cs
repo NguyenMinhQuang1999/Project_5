@@ -19,7 +19,7 @@ namespace API.Controllers
         private string _path;
         public ProductController(IProductBusiness ProductBusiness, IConfiguration configuration)
         {
-            _path = configuration["AppSetting:PATH"];
+            _path = configuration["AppSettings:PATH"];
             _ProductBusiness = ProductBusiness;
         }
         public string SaveFileFromBase64String(string RelativePathFileName, string dataFromBase64String)
@@ -82,6 +82,7 @@ namespace API.Controllers
                     SaveFileFromBase64String(savePath, arrData[2]);
                 }
             }
+            
             _ProductBusiness.Edit(id, model);
             return model;
         }

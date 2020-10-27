@@ -63,7 +63,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ConfirmDialogModule,
     InputTextareaModule,
     ChartModule,
-    NgbModule
+    NgbModule,
+
 
 
   ],

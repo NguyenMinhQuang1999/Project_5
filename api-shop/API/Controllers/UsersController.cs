@@ -45,7 +45,8 @@ namespace API.Controllers
         }
 
         //[Authorize(Roles = Role.User)]
-        [HttpGet("get-by-id/{id}")]
+        [HttpGet]
+        [Route("get-by-id/{id}")]
         public IActionResult GetById(string id)
         {
             // only allow admins to access other user records
@@ -70,7 +71,7 @@ namespace API.Controllers
             _userBusiness.Delete(user_id);
             return Ok();
         }
-        [Route("create_user")]
+        [Route("create-user")]
         [HttpPost]
 
         public UserModel CreateUser([FromBody] UserModel model)
