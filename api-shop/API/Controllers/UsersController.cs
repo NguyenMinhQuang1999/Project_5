@@ -35,7 +35,7 @@ namespace API.Controllers
         }
 
         //[Authorize(Roles = Role.User)]
-       
+        [AllowAnonymous]
         [HttpGet]
         [Route("get-all")]
         public IActionResult GetAll()
@@ -47,22 +47,22 @@ namespace API.Controllers
         //[Authorize(Roles = Role.User)]
         [HttpGet]
         [Route("get-by-id/{id}")]
-        public IActionResult GetById(string id)
+        public UserModel GetById(string id)
         {
-            // only allow admins to access other user records
-            var currentUserId = int.Parse(User.Identity.Name);
-            //  if (id != currentUserId && !User.IsInRole(Role.Admin))
-            //      return Forbid();
+          
+           return _userBusiness.GetById(id);
 
-            var user = _userBusiness.GetById(id);
-
-            if (user == null)
-                return NotFound();
-
-            return Ok(user);
+          }
+        [HttpGet]
+        [Route("delete-user/{id}")]
+        public bool Delete(string id)
+        {
+            return _userBusiness.Delete(id);
         }
 
-        [Route("delete-user")]
+
+
+        [Route("delete-users")]
         [HttpPost]
         public IActionResult DeleteUser([FromBody] Dictionary<string , object> formdata)
         {

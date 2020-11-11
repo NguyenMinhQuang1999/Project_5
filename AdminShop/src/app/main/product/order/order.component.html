@@ -1,4 +1,5 @@
  <!-- Content Wrapper. Contains page content -->
+
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -23,14 +24,43 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Đơn hàng</h3>
+          <!-- <h3 class="card-title">Đơn hàng</h3> -->
+           <!-- <select  class="col-md-3 form-control" >
+             <ng-container *ngFor="let i of status">
+               <option>  <button (click)="filterBill(i.id)">{{ i.name }}</button></option>
+             </ng-container>
 
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+           </select> -->
+            <div class="btn-group">
+                  <button type="button" class="btn  btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Lọc đơn hàng</button>
+                          <div class="dropdown-menu">
+
+                        <ng-container *ngFor="let i of status">
+                          <a class="dropdown-item"(click)="filterBill(i.id)"> <i class="fas fa-ban"> </i>  {{i.name}}</a>
+                        </ng-container>
+                        </div>
+                 </div>
+                 <button class="btn btn-sm btn-primary" (click)="exportExcel()">Export excel</button>
+
+
+
+
+      <div class="card-tools">
+      <div class="input-group input-group-md" >
+      <input class="form-control" [(ngModel)]="term" type="text" placeholder="Nhập thông tin..." >
+      <div class="input-group-append">
+        <button class="btn btn-info btn-md" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+      </div>
+    </div>
+            <!-- <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
               <i class="fas fa-minus"></i></button>
             <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
               <i class="fas fa-times"></i></button>
-          </div>
+          </div> -->
         </div>
 
 
@@ -63,7 +93,7 @@
               <tbody>
 
 
-                <ng-container *ngFor="let item of list_order; let i = index">
+                <ng-container *ngFor="let item of list_order |filter:term | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index">
 
                   <tr>
                       <td>
@@ -117,7 +147,7 @@
                           <a class="dropdown-item"(click)="changeStatus(item.id,'danger')"> <i class="fas fa-ban"> </i>   Đã hủy</a>
 
                         </div>
-                      </div>
+                 </div>
 
                       </td>
                   </tr>
@@ -129,7 +159,10 @@
         </div>
         <!-- /.card-body -->
       </div>
-      <!-- /.card -->
+       <div style="text-align: right;">
+         <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+      </div>
 
     </section>
     <!-- /.content -->
@@ -181,6 +214,9 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Đóng</button>
 
+         <button
+           styleSheetFile="assets/dist/css/adminlte.min.css"
+          printSectionId="in" class="btn btn-info" ngxPrint>In</button>
       </div>
     </div>
   </div>
@@ -204,5 +240,126 @@
         </div>
     </div>
 </div>
+<ng-container  *ngIf="hidden == true">
+
+  <section class="invoice" id="in">
+    <!-- title row -->
+    <div class="row">
+      <div class="col-12">
+        <h2 class="page-header">
+          <i class="fas fa-globe"></i>Công ty THHH Phụ Kiện.
+          <small class="float-right">Ngày Lập: {{day }}</small>
+        </h2>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- info row -->
+    <div class="row invoice-info">
+      <div class="col-sm-4 invoice-col">
+        Từ
+        <address>
+          <strong>Cửa hàng công ty Phụ Kiện.</strong><br>
+          Ngã tư Phố Nối, Mỹ Hào, Hưng Yên<br>
+          Điện thoại: 03938292<br>
+          Email: phukiendientu.com
+        </address>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-4 invoice-col">
+        Đến
+        <address>
+          <strong>{{order_detail.customer_name}}</strong><br>
+          795 Folsom Ave, Suite 600<br>
+          San Francisco, CA 94107<br>
+          Phone: (555) 539-1037<br>
+          Email: john.doe@example.com
+        </address>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-4 invoice-col">
+        <b>Mã hóa đơn {{order_detail.bill_id}}</b><br>
+        <br>
+        <!-- <b>Order ID:</b> 4F3S8J<br> -->
+        <b>Ngày lập:</b>{{day}}<br>
+        <!-- <b>Account:</b> 968-34567 -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <!-- Table row -->
+    <div class="row">
+      <div class="col-12 table-responsive">
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Giá sản phẩm</th>
+
+          </tr>
+          </thead>
+          <tbody>
+           <ng-container *ngFor="let s of order_detail; let i = index">
+            <tr>
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ s.name }}</td>
+              <td>{{ s.quantity_sale }}</td>
+              <td>{{ s.price | number}} VNĐ</td>
+            </tr>
+            </ng-container>
+
+
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+      <!-- accepted payments column -->
+      <div class="col-6">
+        <p class="lead">Phương thức thanh toán:</p>
+        <img src="../../dist/img/credit/visa.png" alt="Visa">
+        <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+        <img src="../../dist/img/credit/american-express.png" alt="American Express">
+        <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+
+        <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+
+        </p>
+      </div>
+      <!-- /.col -->
+      <div class="col-6">
+        <p class="lead">Ngày lập {{order_detail.created_at}}</p>
+
+        <div class="table-responsive">
+          <table class="table">
+            <tr>
+              <th style="width:50%">Tổng tiền:</th>
+              <td>{{order_detail.total| number}} VNĐ</td>
+            </tr>
+            <tr>
+              <th>Thuế</th>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>Phí vận chuyển </th>
+              <td>0</td>
+            </tr>
+            <tr>
+              <th>Tổng tiền:</th>
+              <td>{{order_detail.total| number}} VNĐ</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+</ng-container>
 
 

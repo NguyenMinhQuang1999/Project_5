@@ -18,6 +18,7 @@ export class HeaderComponent extends BaseComponent implements OnInit {
   totalItems: any;
   category_id: any;
   categories: any;
+   name: any;
   constructor(injector: Injector) {
     super(injector);
   }

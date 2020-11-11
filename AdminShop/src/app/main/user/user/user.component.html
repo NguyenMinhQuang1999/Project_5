@@ -57,10 +57,10 @@
           <td>{{ item.role }}</td>
           <td class="action-col" >
             <div class="btn-group">
-              <button title="" class="btn btn-primary btn-xs btn-white btn-default"  (click)="openUpdateModal(item)">
+              <button title="" class="btn btn-primary btn-xs btn-white btn-default"  (click)="openUpdateModal(item.user_id)">
                 <i class="ace-icon fa fa-edit"></i>
               </button>
-              <button title="" class="btn btn-danger btn-xs btn-white btn-default" (click)="onDelete(item)">
+              <button title="" class="btn btn-danger btn-xs btn-white btn-default" (click)="onDelete(item.user_id)">
                 <i class="ace-icon fa fa-trash"></i>
               </button>
             </div>

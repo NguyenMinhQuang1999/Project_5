@@ -13,6 +13,7 @@ namespace BLL
         ProductModel GetDatabyID(string id);
         List<ProductModel> GetDataAll();
         List<ProductModel> GetProductRelated(int id, string category_id);
-        List<ProductModel> Search(int pageIndex, int pageSize, out long total,  string category_id);
+        List<ProductModel> SearchName(string searchName);
+       List<ProductModel> Search(int pageIndex, int pageSize, out long total,  string category_id);
     }
 }

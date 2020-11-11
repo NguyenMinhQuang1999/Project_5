@@ -44,5 +44,11 @@ namespace BLL
         {
             return _res.GetProductRelated(id, category_id);
         }
+
+        public List<ProductModel> SearchName(string searchName)
+        {
+            return _res.SearchName(searchName);
+        }
+
     }
 }

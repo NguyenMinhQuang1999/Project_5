@@ -1,6 +1,6 @@
 import { Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseComponent } from 'src/app/common/base-component';
+import { BaseComponent } from '../../../common/base-component';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/takeUntil';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -21,6 +21,8 @@ export class ProductComponent extends BaseComponent implements OnInit {
     super(injector);
   }
 
+    config: any;
+  p: number = 1;
         formData: any;
         name: any;
         category_id: any;
@@ -40,12 +42,16 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
         category: any;
 
+  public billdetail: any;
+
   public pageSize = 3;
   public page = 1;
   public uploadedFiles: any[] = [];
   public formsearch: any;
   totalRecords: any;
-  config: any;
+
+  term: string;
+
 
 
   @ViewChild(FileUpload, { static: false }) file_image: FileUpload;
@@ -85,19 +91,55 @@ export class ProductComponent extends BaseComponent implements OnInit {
           });
           }, err => { })
 
+    Observable.combineLatest(
+         this._api.get('api/bill/get-billdetail')
+    ).takeUntil(this.unsubcribe).subscribe(
+      res => {
+        this.billdetail = res[0];
+        console.log(this.billdetail);
+         }, err=> {}
+       )
+
           Observable.combineLatest(this._api.get('api/category/get-category')).takeUntil(this.unsubcribe)
             .subscribe(res => {
               this.category = res[0];
 
-          }, err => {})
+            }, err => { })
+      this.config = {
+      itemsPerPage: 5,
+      currentPage: 1,
+      // totalItems: this.products.length
+    };
+  }
 
 
-      }
+
+
+  checkInBill(id) {
+    let ok = false;
+    if (this.billdetail) {
+      this.billdetail.forEach(element => {
+
+        if (element.product_id == id) {
+            ok = true;
+         }
+
+       });
+    }
+    return ok;
+}
+
 
 
   delete(id: any) {
+    console.log(this.checkInBill(id));
     if(confirm("Bạn có muốn chắn chắn xóa không!")){
 
+      if (this.checkInBill(id) == true) {
+
+         alert("Sản phẩm đang có trong giỏ hàng!");
+         this.messageService.add({severity:'warning', summary:'Service Message', detail:'Via MessageService'});
+        }else{
 
       Observable.combineLatest(
         this._api.get('api/product/delete-product/' + id)
@@ -106,9 +148,11 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
           this.products = this.products.filter(val => val.product_id !== id);
           this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
-        }
+
+          }
 
       );
+        }
       }
     }
 
@@ -175,6 +219,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
               }).takeUntil(this.unsubcribe).subscribe((res) => {
                 this.message = res;
                 this.products.unshift(this.message);
+                  this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
                 $("#formModal").modal('hide');
               });
             });
@@ -194,7 +239,8 @@ export class ProductComponent extends BaseComponent implements OnInit {
                 status: +value.status,
               }).takeUntil(this.unsubcribe).subscribe((res) => {
                 this.message = res;
-                   this.products[this.findIndexById(this.message.product_id)] = this.message;
+                this.products[this.findIndexById(this.message.product_id)] = this.message;
+                 this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
                 //  location.reload();
                 $("#formModal").modal('hide');
               });
@@ -228,7 +274,9 @@ export class ProductComponent extends BaseComponent implements OnInit {
         }
 
         return index;
-    }
+  }
+
+
 
 
 

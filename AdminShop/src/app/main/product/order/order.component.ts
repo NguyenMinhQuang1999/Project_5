@@ -1,9 +1,10 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { BaseComponent } from 'src/app/common/base-component';
+import {BaseComponent} from '../../../common/base-component'
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/takeUntil';
 import { Observable } from 'rxjs';
-
+import {ToastModule} from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 declare var $: any;
 declare var Swal: any;
 declare var Toast: any;
@@ -17,13 +18,27 @@ export class OrderComponent extends BaseComponent implements OnInit {
   location: Location;
   list_order: any;
   order_detail: any;
-  constructor(injector: Injector) {
+  status: any;
+  term: string;
+  p: number = 1;
+  day: any;
+  cols: any[];
+  hidden = false;
+
+   exportColumns: any[];
+  constructor(injector: Injector, private messageService: MessageService) {
     super(injector);
    }
 
   ngOnInit(): void {
+    this.status = [
+      { id: 1, name: "Đang xử lý" },
+      { id: 2, name: "Đã xác thực" },
+      { id: 3, name: "Đã giao hàng" },
+      { id: 0, name: "Đã hủy" },
+    ];
     // Lay danh sach don hang
-
+    this.day= Date.now();
     Observable.combineLatest(
       this._api.get('api/bill/get-bills')).takeUntil(this.unsubcribe).subscribe(
         res => {
@@ -33,10 +48,33 @@ export class OrderComponent extends BaseComponent implements OnInit {
 
           });
         }
-    )
+    );
 
 
 
+
+  }
+
+  exportExcel() {
+    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+    // import("xlsx").then(xlsx => {
+    //   const worksheet = xlsx.utils.json_to_sheet(this.list_order);
+    //   const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    //   const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+    //   this.saveAsExcelFile(excelBuffer, "list_order");
+    // });
+  }
+
+
+  filterBill(id: any) {
+      Observable.combineLatest(this._api.get("api/bill/get-by-status/" + id)).takeUntil(this.unsubcribe).subscribe(
+      res => {
+        this.list_order = res[0];
+      }
+
+   )
+
+    console.log(this.list_order);
   }
 
  ViewDetail(id) {
@@ -73,7 +111,8 @@ Swal.fire({
      Observable.combineLatest(
       this._api.get('api/bill/delete-bill/' + id)).takeUntil(this.unsubcribe).subscribe(
         res => {
-          location.reload();
+         // location.reload();
+          this.list_order = this.list_order.filter(val => val.id != id);
         }
       );
 

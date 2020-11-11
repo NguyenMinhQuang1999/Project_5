@@ -1,6 +1,7 @@
 import { of as observableOf, fromEvent, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FileUpload } from 'primeng/fileupload';
+ import { FileUpload } from 'primeng/fileupload';
+
 import { ActivatedRoute } from '@angular/router';
 import { Injector, Renderer2, } from '@angular/core';
 import { ApiService } from './api_service';
@@ -119,4 +120,16 @@ export class BaseComponent {
       return observableOf(null);
     }
   }
+
+
+  saveAsExcelFile(buffer: any, fileName: string): void {
+        import("file-saver").then(FileSaver => {
+            let EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+            let EXCEL_EXTENSION = '.xlsx';
+            const data: Blob = new Blob([buffer], {
+                type: EXCEL_TYPE
+            });
+            FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
+        });
+    }
 }

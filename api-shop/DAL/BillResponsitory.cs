@@ -23,7 +23,7 @@ namespace DAL
             {
                 var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_hoa_don_create",
                 "@id", model.id,
-                "@name", model.name,
+                "@name", model.customer_name,
                 "@total", model.total,
                 "@address", model.address,
                 "@phone", model.phone,
@@ -129,6 +129,37 @@ namespace DAL
                 return dt.ConvertTo<BillDetailModel>().ToList();
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<BillModel> GetByStatus(int status)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_get_bill_by_status", "@status", status);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<BillModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public List<BillDetailModel> GetAllBillDetails()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_billdetail_get_all");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<BillDetailModel>().ToList();
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

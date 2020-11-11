@@ -107,6 +107,13 @@ namespace API.Controllers
             return _ProductBusiness.GetDataAll();
         }
 
+        [Route("search-name/{searchName}")] 
+        [HttpGet]
+        public IEnumerable<ProductModel> SearchName(string searchName)
+        {
+            return _ProductBusiness.SearchName(searchName);
+        }
+
         [Route("get-product-related/{id}/{category_id}")]
         [HttpGet]
         public IEnumerable<ProductModel> GetProductRelated(int id, string category_id)

@@ -71,6 +71,23 @@ namespace DAL
             }
         }
 
+        public ProductModel GetDatabyID(string id)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_get_by_id",
+                     "@product_id", id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<ProductModel>().FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public List<UserModel> Search(int pageIndex, int pageSize, out long total, string name, string username)
         {
             string msgError = "";

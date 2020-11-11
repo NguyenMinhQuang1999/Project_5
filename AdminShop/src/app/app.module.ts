@@ -16,6 +16,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap' ;
 import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angular';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ChartModule } from 'primeng/chart';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ConfirmDialogModule,
     NgbModule,
    // HighchartsChartModule
-     NgxPaginationModule
+    NgxPaginationModule,
+    ChartModule,
+    Ng2SearchPipeModule
+
 
 
   ],

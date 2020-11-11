@@ -19,7 +19,7 @@ const routes: Routes = [
       import('./customer/customer.module').then((m) => m.CustomerModule),
   },
   {
-    path: 'search',
+    path: 'search/:name',
     component: SearchComponent
   },
   // { path: '**', component:NotFoundComponent}

@@ -5,12 +5,14 @@ import { ProductComponent } from './product/product.component';
 import { TypeComponent } from './type/type.component';
 import { SharedModule } from 'primeng/api';
 import { OrderComponent } from './order/order.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadModule } from 'primeng/fileupload';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { EditorModule } from '@tinymce/tinymce-angular';
-
-
+import { ToastModule } from 'primeng/toast';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {DropdownModule} from 'primeng/dropdown';
+import {NgxPrintModule} from 'ngx-print';
 
 
 const routes: Routes = [
@@ -31,7 +33,12 @@ const routes: Routes = [
     ReactiveFormsModule,
     FileUploadModule,
     NgxPaginationModule,
-    EditorModule
+    EditorModule,
+    ToastModule,
+    Ng2SearchPipeModule,
+    FormsModule,
+    NgxPrintModule
+
 
 
 

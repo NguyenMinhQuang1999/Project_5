@@ -41,9 +41,10 @@ namespace API.Controllers
             return _hoaDonBusiness.GetBillByID(id);
         }
 
-        [Route("delete-bill/{id}")]
+        [Route("delete-bill/{id}")]    
+
         [HttpGet]
-        public bool Delet(string id)
+        public bool Delete(string id)
         {
             return _hoaDonBusiness.Delete(id);
         }
@@ -56,6 +57,13 @@ namespace API.Controllers
             return _hoaDonBusiness.changeStatus(id, msg);
         }
 
+        [Route("get-by-status/{status}")]
+        [HttpGet]
+        public List<BillModel> getByStatus(int status)
+        {
+            return _hoaDonBusiness.GetByStatus(status);
+        }
+
 
 
         [Route("get-bills")]
@@ -63,6 +71,13 @@ namespace API.Controllers
         public List<BillModel> GetBills()
         {
             return _hoaDonBusiness.GetAllBill();
+        }
+
+        [Route("get-billdetail")]
+        [HttpGet]
+        public List<BillDetailModel> GetBillDetail()
+        {
+            return _hoaDonBusiness.GetAllBillDetails();
         }
 
         [Route("doanh-thu-theo-thang")]

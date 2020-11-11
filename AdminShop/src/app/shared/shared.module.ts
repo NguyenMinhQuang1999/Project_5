@@ -33,6 +33,7 @@ import { MessagesModule } from 'primeng/messages';
 import { ChartModule } from 'primeng/chart';
 import { NgxPaginationModule } from 'ngx-pagination';
  import { EditorModule } from '@tinymce/tinymce-angular';
+import { PaginatorModule } from 'primeng/paginator';
 @NgModule({
   declarations: [
 
@@ -64,6 +65,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     InputTextareaModule,
     ChartModule,
     NgbModule,
+    PaginatorModule,
+    ToastModule
 
 
 
@@ -95,7 +98,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ChartModule,
     NgbModule,
     NgxPaginationModule,
-    EditorModule
+    EditorModule,
+    PaginatorModule,
+    ToastModule
 
 
 

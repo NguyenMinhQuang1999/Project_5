@@ -33,7 +33,7 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
   }
   onSubmit(value: any) {
     let hoadon = {
-      name: value.name,
+     customer_name: value.name,
       address: value.address,
       phone: value.phone,
     //  customer_id: 0,

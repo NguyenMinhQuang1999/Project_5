@@ -8,7 +8,7 @@ namespace Model
     {
 
         public string id { get; set; }
-        public string name { get; set; }   
+        public string customer_name { get; set; }   
   //      public int customer_id { set; get; }
         public int total { get; set; }
         public string address { get; set; }

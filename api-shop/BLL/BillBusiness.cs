@@ -34,9 +34,19 @@ namespace BLL
             return _res.GetAllBill();
         }
 
+        public List<BillModel> GetByStatus(int status)
+        {
+            return _res.GetByStatus(status);
+        }
+
         public List<BillDetailModel> GetBillByID(string id)
         {
             return _res.GetBillByID(id);
+        }
+
+        public List<BillDetailModel> GetAllBillDetails()
+        {
+            return _res.GetAllBillDetails();
         }
         public Thang ThongKeDoanhThuTheoThang()
         {

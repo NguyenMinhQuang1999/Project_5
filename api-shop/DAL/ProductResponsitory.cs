@@ -164,5 +164,25 @@ namespace DAL
                 throw ex;
             }
         }
+
+        public List<ProductModel> SearchName(string searchName)
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_search_name",
+                  
+                    "@msg", searchName
+
+                     );
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

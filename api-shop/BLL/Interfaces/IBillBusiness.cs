@@ -13,5 +13,7 @@ namespace BLL
     Thang ThongKeDoanhThuTheoThang();
         List<BillModel> GetAllBill();
         List<BillDetailModel> GetBillByID(string id);
+        List<BillDetailModel> GetAllBillDetails();
+        List<BillModel> GetByStatus(int status);
     }
 }

@@ -16,7 +16,7 @@ export class DashboardComponent extends BaseComponent implements OnInit {
   result: number[] = [];
   data: any;
   solieu: any;
-  constructor(private injector: Injector) {
+  constructor(private injector: Injector, private messageService: MessageService) {
     super(injector)
   }
 
@@ -50,13 +50,18 @@ export class DashboardComponent extends BaseComponent implements OnInit {
             datasets: [
                 {
                     label: 'First Dataset',
-                    data:this.result,
+                    data: this.result,
                     fill: false,
                     borderColor: '#4bc0c0'
                 },
 
             ]
         }
+
+
+  }
+   selectData(event) {
+        this.messageService.add({severity: 'info', summary: 'Data Selected', 'detail': this.data.datasets[event.element._datasetIndex].data[event.element._index]});
     }
 
   }

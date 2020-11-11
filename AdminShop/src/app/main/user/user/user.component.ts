@@ -95,7 +95,7 @@ export class UserComponent extends BaseComponent implements OnInit {
       this.getEncodeFromImage(this.file_image).subscribe((data: any): void => {
         let data_image = data == '' ? null : data;
         let tmp = {
-       //   image_url: data_image,
+
           name: value.name,
           address: value.address,
           username: value.username,
@@ -134,8 +134,8 @@ export class UserComponent extends BaseComponent implements OnInit {
   }
 
 
-  onDelete(row) {
-    this._api.post('api/users/delete-user', { user_id: row.user_id }).takeUntil(this.unsubcribe).subscribe(
+  onDelete(id) {
+    this._api.get('api/users/delete-user/'+ id).takeUntil(this.unsubcribe).subscribe(
       res => {
         alert('Delete success!');
         this.search();
@@ -183,18 +183,20 @@ export class UserComponent extends BaseComponent implements OnInit {
   }
 
 
-  public openUpdateModal(row) {
-    this.doneSetupForm = false;
+  public openUpdateModal(id) {
+   // this.doneSetupForm = false;
     this.showUpdateModal = true;
     this.isCreate = false;
     setTimeout(() => {
-      $("#createuserModal").modal("toggle");
-      this._api.get('api/users/get-by-id/' + row.user_id).takeUntil(this.unsubcribe).subscribe(res => {
+     // $("#createuserModal").modal("toggle");
+      this._api.get('api/users/get-by-id/' + id).takeUntil(this.unsubcribe).subscribe(res => {
         this.user = res;
+         $('#createUserModal').modal('toggle');
+        console.log(this.user);
             this.formdata = this.fb.group({
-        'name': ['', Validators.required],
-        'address': ['', Validators.required],
-        'username': ['', Validators.required],
+        'name': [this.user.name, Validators.required],
+        'address': [this.user.address, Validators.required],
+        'username': [this.user.username, Validators.required],
         'password': ['', Validators.required, this.pwdCheckValidator],
         'enterpassword': ['', Validators.required],
         'role': [this.roles[0].value, Validators.required]
@@ -202,7 +204,7 @@ export class UserComponent extends BaseComponent implements OnInit {
         {
           validator: MustMatch('password', 'enterpassword')
 
-              });
+       });
         this.doneSetupForm = true;
       })
     }, 700)

@@ -89,8 +89,8 @@
                          </div>
                          <div class="pricing-meta">
                            <ul>
-                             <li class="old-price">{{ item.price |number }} VNĐ</li>
-                             <li class="current-price">{{ item.promotion_price | number }} VNĐ</li>
+                             <!-- <li class="old-price">{{ item.price |number }} VNĐ</li> -->
+                             <li class="current-price">{{ item.price | number }} VNĐ</li>
                              <!-- <li class="discount-price">-5%</li> -->
                            </ul>
                          </div>
@@ -214,11 +214,10 @@
                  <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                    <div class="card-body">
                      <ul class="category-list">
-                       <li><a href="#">Dresses</a></li>
-                       <li><a href="#">Jackets &amp; Coats</a></li>
-                       <li><a href="#">Sweaters</a></li>
-                       <li><a href="#">Jeans</a></li>
-                       <li><a href="#">Blouses &amp; Shirts</a></li>
+
+                      <ng-container *ngFor="let i of categories">
+                       <li><a [routerLink]="['/product/list-item', i.category_id]"> {{i.name}}</a></li>
+                       </ng-container>
                      </ul>
                    </div>
                  </div>
@@ -234,13 +233,13 @@
                <h4 class="pro-sidebar-title">Giá</h4>
                <div class="price-filter mt-10">
                  <div class="price-slider-amount">
-                   <input type="text" id="amount" name="price" placeholder="Thêm giá vào sản phẩm" />
+                   <input type="text" id="amount" name="price" placeholder="Nhập giá..." />
                  </div>
                  <div id="slider-range"></div>
                </div>
              </div>
              <!-- Sidebar single item -->
-             <div class="sidebar-widget mt-30">
+             <!-- <div class="sidebar-widget mt-30">
                <h4 class="pro-sidebar-title">Size</h4>
                <div class="sidebar-widget-list">
                  <ul>
@@ -270,9 +269,9 @@
                    </li>
                  </ul>
                </div>
-             </div>
+             </div> -->
              <!-- Sidebar single item -->
-             <div class="sidebar-widget no-cba mt-20">
+             <!-- <div class="sidebar-widget no-cba mt-20">
                <h4 class="pro-sidebar-title">Colour</h4>
                <div class="sidebar-widget-list">
                  <ul>
@@ -302,9 +301,9 @@
                    </li>
                  </ul>
                </div>
-             </div>
+             </div> -->
              <!-- Sidebar single item -->
-             <div class="sidebar-widget mt-30">
+             <!-- <div class="sidebar-widget mt-30">
                <h4 class="pro-sidebar-title">Brand</h4>
                <div class="sidebar-widget-list">
                  <ul>
@@ -322,10 +321,10 @@
                    </li>
                  </ul>
                </div>
-             </div>
+             </div> -->
            </div>
            <!-- Sidebar single item -->
-           <div class="sidebar-widget tag mt-30px">
+           <!-- <div class="sidebar-widget tag mt-30px">
              <div class="main-heading">
                <h3 class="sidebar-title">Tags</h3>
              </div>
@@ -337,7 +336,7 @@
                  <li><a href="#">Camera & Photo</a></li>
                </ul>
              </div>
-           </div>
+           </div> -->
            <!-- Sidebar single item -->
          </div>
        </div>
