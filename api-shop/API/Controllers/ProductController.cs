@@ -114,6 +114,20 @@ namespace API.Controllers
             return _ProductBusiness.SearchName(searchName);
         }
 
+        [Route("ban-cham")]
+        [HttpGet]
+        public IEnumerable<ProductModel> BanCham()
+        {
+            return _ProductBusiness.SanPhamBanCham();
+        }
+        [Route("ban-chay")]
+        [HttpGet]
+        public IEnumerable<ProductModel> BanChay()
+        {
+            return _ProductBusiness.SanPhamBanChay();
+        }
+       
+
         [Route("get-product-related/{id}/{category_id}")]
         [HttpGet]
         public IEnumerable<ProductModel> GetProductRelated(int id, string category_id)
@@ -135,6 +149,31 @@ namespace API.Controllers
                 if (formData.Keys.Contains("category_id") && !string.IsNullOrEmpty(Convert.ToString(formData["category_id"]))) { category_id = Convert.ToString(formData["category_id"]); }
                 long total = 0;
                 var data = _ProductBusiness.Search(page, pageSize, out total, category_id);
+                response.TotalItems = total;
+                response.Data = data;
+                response.Page = page;
+                response.PageSize = pageSize;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return response;
+        }
+
+        [Route("search-home")]
+        [HttpPost]
+        public ResponseModel SearchHome([FromBody] Dictionary<string, object> formData)
+        {
+            var response = new ResponseModel();
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string keyword = "";
+                if (formData.Keys.Contains("keyword") && !string.IsNullOrEmpty(Convert.ToString(formData["keyword"]))) { keyword = Convert.ToString(formData["keyword"]); }
+                long total = 0;
+                var data = _ProductBusiness.SearchHome(page, pageSize, out total, keyword);
                 response.TotalItems = total;
                 response.Data = data;
                 response.Page = page;

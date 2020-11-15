@@ -123,6 +123,48 @@ namespace DAL
                 throw ex;
             }
         }
+
+        public List<ProductModel> SanPhamBanChay()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thongke_sp_banchay");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ProductModel> SanPhamBanCham()
+        {
+            string msgError = "";
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_thongke_sp_bancham");
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
         public List<ProductModel> Search(int pageIndex, int pageSize, out long total, string category_id)
         {
             string msgError = "";
@@ -131,9 +173,29 @@ namespace DAL
             {
                 var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_product_search",
                     "@page_index", pageIndex,
-                    "@page_size", pageSize,
-                    
+                    "@page_size", pageSize,                    
                     "@category_id", category_id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<ProductModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<ProductModel> SearchHome(int pageIndex, int pageSize, out long total, string keyword)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_home_search",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@name", keyword);
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];

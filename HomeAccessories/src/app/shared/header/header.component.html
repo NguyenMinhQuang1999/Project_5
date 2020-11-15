@@ -72,13 +72,15 @@
                           <select>
                             <option value="0">Danh mục</option>
                             <ng-container *ngFor="let i of categories">
-                            <option><a [routerLink]="['/product/list-item', i.category_id]">{{ i.name }}</a></option>
+                              <option><a [routerLink]="['/product/list-item', i.category_id]">{{ i.name }}</a></option>
                             </ng-container>
 
                           </select>
                         </div>
-                        <input type="text"   placeholder="Hãy nhập thông tin... " />
-                     <a  [routerLink]="['/search/']">  <button><i class="icon-magnifier"></i></button> </a>
+                        <input type="text" [(ngModel)]="keyword" #key placeholder="Hãy nhập thông tin... " />
+
+
+                        <a [routerLink]="['/search']"   (click)="sendMessage(key.value)"> <button><i class="icon-magnifier"></i></button> </a>
                       </form>
                     </div>
                     <div class="contact-link">
@@ -91,9 +93,9 @@
                     <div class="header-tools d-flex">
                       <div class="cart-info d-flex align-self-center">
                         <a href="compare.html" class="shuffle" data-number="3"><i class="icon-shuffle"></i></a>
-                        <a href="#offcanvas-wishlist" class="heart offcanvas-toggle" data-number="3"><i
+                        <a href="#offcanvas-wishlist" class="heart offcanvas-toggle" data-number="2"><i
                             class="icon-heart"></i></a>
-                        <a routerLink="/customer/cart" class="bag offcanvas-toggle" id="total" data-number="0"><i
+                        <a routerLink="/customer/cart" class="bag offcanvas-toggle" id="total" data-number="3"><i
                             class="icon-bag"></i><span></span></a>
                       </div>
                     </div>

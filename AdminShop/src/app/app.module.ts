@@ -18,10 +18,12 @@ import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angu
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ChartModule } from 'primeng/chart';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { PrintOrderComponent } from './main/product/print-order/print-order.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
+    PrintOrderComponent
    // HighchartsChartComponent
 
   ],

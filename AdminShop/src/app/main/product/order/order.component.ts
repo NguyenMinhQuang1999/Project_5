@@ -23,6 +23,7 @@ export class OrderComponent extends BaseComponent implements OnInit {
   p: number = 1;
   day: any;
   cols: any[];
+  id: any;
   hidden = false;
 
    exportColumns: any[];
@@ -56,13 +57,13 @@ export class OrderComponent extends BaseComponent implements OnInit {
   }
 
   exportExcel() {
-    this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-    // import("xlsx").then(xlsx => {
-    //   const worksheet = xlsx.utils.json_to_sheet(this.list_order);
-    //   const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-    //   const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-    //   this.saveAsExcelFile(excelBuffer, "list_order");
-    // });
+   // this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+    import("xlsx").then(xlsx => {
+      const worksheet = xlsx.utils.json_to_sheet(this.list_order);
+      const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+      const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+      this.saveAsExcelFile(excelBuffer, "list_order");
+    });
   }
 
 
@@ -78,7 +79,8 @@ export class OrderComponent extends BaseComponent implements OnInit {
   }
 
  ViewDetail(id) {
-    console.log(id);
+   console.log(id);
+   this.id = id;
 
      Observable.combineLatest(
       this._api.get('api/bill/get-bill-detail/' + id)).takeUntil(this.unsubcribe).subscribe(

@@ -40,6 +40,12 @@ namespace BLL
             return _res.Search(pageIndex, pageSize, out total, Product_group_id);
         }
 
+        public List<ProductModel> SearchHome(int pageIndex, int pageSize, out long total, string keyword)
+        {
+            return _res.SearchHome(pageIndex, pageSize, out total, keyword);
+        }
+
+
         public List<ProductModel> GetProductRelated(int id, string category_id)
         {
             return _res.GetProductRelated(id, category_id);
@@ -49,6 +55,13 @@ namespace BLL
         {
             return _res.SearchName(searchName);
         }
-
+        public List<ProductModel> SanPhamBanCham()
+        {
+            return _res.SanPhamBanCham();
+        }
+        public List<ProductModel> SanPhamBanChay()
+        {
+            return _res.SanPhamBanChay();
+        }
     }
 }

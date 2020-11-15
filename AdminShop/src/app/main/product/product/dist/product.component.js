@@ -47,6 +47,13 @@ var ProductComponent = /** @class */ (function (_super) {
         configurable: true
     });
     ;
+    ProductComponent.prototype.loadPage = function () {
+        var _this = this;
+        rxjs_1.Observable.combineLatest(this._api.get('api/bill/get-billdetail')).takeUntil(this.unsubcribe).subscribe(function (res) {
+            _this.billdetail = res[0];
+            console.log(_this.billdetail);
+        }, function (err) { });
+    };
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.formsearch = this.fb.group({
@@ -100,12 +107,12 @@ var ProductComponent = /** @class */ (function (_super) {
         if (confirm("Bạn có muốn chắn chắn xóa không!")) {
             if (this.checkInBill(id) == true) {
                 alert("Sản phẩm đang có trong giỏ hàng!");
-                this.messageService.add({ severity: 'warning', summary: 'Service Message', detail: 'Via MessageService' });
+                // this.messageService.add({severity:'warning', summary:'Service Message', detail:'Via MessageService'});
             }
             else {
                 rxjs_1.Observable.combineLatest(this._api.get('api/product/delete-product/' + id)).takeUntil(this.unsubcribe).subscribe(function (res) {
                     _this.products = _this.products.filter(function (val) { return val.product_id !== id; });
-                    _this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+                    //    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
                 });
             }
         }
@@ -158,8 +165,11 @@ var ProductComponent = /** @class */ (function (_super) {
                 }).takeUntil(_this.unsubcribe).subscribe(function (res) {
                     _this.message = res;
                     _this.products.unshift(_this.message);
-                    _this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
-                    $("#formModal").modal('hide');
+                    //  this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
+                    setTimeout(function () {
+                        $("#formModal").modal('hide');
+                        _this.loadPage();
+                    });
                 });
             });
         }
@@ -181,8 +191,10 @@ var ProductComponent = /** @class */ (function (_super) {
                     _this.message = res;
                     _this.products[_this.findIndexById(_this.message.product_id)] = _this.message;
                     _this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
-                    //  location.reload();
-                    $("#formModal").modal('hide');
+                    setTimeout(function () {
+                        $("#formModal").modal('hide');
+                        _this.loadPage();
+                    });
                 });
             });
         }

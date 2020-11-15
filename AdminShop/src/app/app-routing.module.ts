@@ -3,11 +3,16 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { AuthGuard } from './common/auth.guard';
+import { PrintOrderComponent } from './main/product/print-order/print-order.component';
 const routes: Routes = [
 
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'print/:id',
+    component: PrintOrderComponent
   },
   {
     path: '',

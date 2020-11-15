@@ -25,6 +25,7 @@ export class UserComponent extends BaseComponent implements OnInit {
   public showUpdateModal: any;
   public isCreate: any;
   public list: any;
+  public user_id: any;
 
   submitted = false;
   @ViewChild(FileUpload, { static: false }) file_image: FileUpload;
@@ -115,6 +116,7 @@ export class UserComponent extends BaseComponent implements OnInit {
         let data_image = data == '' ? null : data;
         let tmp = {
         //  image_url: data_image,
+          user_id: this.user_id,
           name: value.name,
           address: value.address,
           username: value.username,
@@ -185,6 +187,7 @@ export class UserComponent extends BaseComponent implements OnInit {
 
   public openUpdateModal(id) {
    // this.doneSetupForm = false;
+    this.user_id = id;
     this.showUpdateModal = true;
     this.isCreate = false;
     setTimeout(() => {

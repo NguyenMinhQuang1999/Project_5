@@ -14,6 +14,7 @@ import { RoleGuard } from '../common/auth.guard';
 import { Role } from '../models/role';
 import { HighchartsChartComponent } from 'highcharts-angular';
 import { ChartModule } from 'primeng/chart';
+import { ThongkeComponent } from './thongke/thongke.component';
 
 export const mainRoutes: Routes = [
   {
@@ -44,6 +45,17 @@ export const mainRoutes: Routes = [
         canActivate: [RoleGuard],
        data: {roles: [Role.Admin, Role.User]}
       },
+        {
+        path: 'thong-ke',
+        loadChildren: () =>
+         import('../main/thongke/thongke.module').then(
+            (m) => m.ThongkeModule
+          ),
+        canActivate: [RoleGuard],
+       data: {roles: [Role.Admin]}
+      },
+
+
     //  {path: '**', component: NotFoundComponent}
     ],
   },
@@ -57,7 +69,8 @@ export const mainRoutes: Routes = [
     NavbarComponent,
     MainComponent,
     NotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
+    ThongkeComponent
   ],
   imports: [CommonModule, RouterModule.forChild(mainRoutes),SharedModule , ChartModule,]
 })

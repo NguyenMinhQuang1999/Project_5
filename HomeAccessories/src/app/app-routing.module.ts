@@ -19,7 +19,7 @@ const routes: Routes = [
       import('./customer/customer.module').then((m) => m.CustomerModule),
   },
   {
-    path: 'search/:name',
+    path: 'search',
     component: SearchComponent
   },
   // { path: '**', component:NotFoundComponent}
@@ -29,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

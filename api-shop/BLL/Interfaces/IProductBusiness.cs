@@ -14,6 +14,9 @@ namespace BLL
         List<ProductModel> GetDataAll();
         List<ProductModel> GetProductRelated(int id, string category_id);
         List<ProductModel> SearchName(string searchName);
-       List<ProductModel> Search(int pageIndex, int pageSize, out long total,  string category_id);
+        List<ProductModel> SanPhamBanChay();
+        List<ProductModel> SanPhamBanCham();
+        List<ProductModel> Search(int pageIndex, int pageSize, out long total,  string category_id);
+        List<ProductModel> SearchHome(int pageIndex, int pageSize, out long total, string keyword);
     }
 }

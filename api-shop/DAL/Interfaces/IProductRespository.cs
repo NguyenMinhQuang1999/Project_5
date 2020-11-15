@@ -18,6 +18,9 @@ namespace DAL
         List<ProductModel> Search(int pageIndex, int pageSize, out long total,  string category_id);
         List<ProductModel> GetProductRelated(int id, string category_id);
         List<ProductModel> SearchName(string searchName);
+        List<ProductModel> SanPhamBanChay();
+        List<ProductModel> SanPhamBanCham();
+        List<ProductModel> SearchHome(int pageIndex, int pageSize, out long total, string keyword);
 
     }
 }

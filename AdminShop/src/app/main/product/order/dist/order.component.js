@@ -52,13 +52,14 @@ var OrderComponent = /** @class */ (function (_super) {
         });
     };
     OrderComponent.prototype.exportExcel = function () {
-        this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
-        // import("xlsx").then(xlsx => {
-        //   const worksheet = xlsx.utils.json_to_sheet(this.list_order);
-        //   const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-        //   const excelBuffer: any = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
-        //   this.saveAsExcelFile(excelBuffer, "list_order");
-        // });
+        var _this = this;
+        // this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
+        Promise.resolve().then(function () { return require("xlsx"); }).then(function (xlsx) {
+            var worksheet = xlsx.utils.json_to_sheet(_this.list_order);
+            var workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+            var excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+            _this.saveAsExcelFile(excelBuffer, "list_order");
+        });
     };
     OrderComponent.prototype.filterBill = function (id) {
         var _this = this;
@@ -70,6 +71,7 @@ var OrderComponent = /** @class */ (function (_super) {
     OrderComponent.prototype.ViewDetail = function (id) {
         var _this = this;
         console.log(id);
+        this.id = id;
         rxjs_1.Observable.combineLatest(this._api.get('api/bill/get-bill-detail/' + id)).takeUntil(this.unsubcribe).subscribe(function (res) {
             _this.order_detail = res[0];
             console.log(_this.order_detail);

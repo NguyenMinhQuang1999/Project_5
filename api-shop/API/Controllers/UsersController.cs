@@ -10,7 +10,7 @@ using Model;
 
 namespace API.Controllers
 {
-   // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase

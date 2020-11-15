@@ -13,6 +13,7 @@ import { ToastModule } from 'primeng/toast';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {DropdownModule} from 'primeng/dropdown';
 import {NgxPrintModule} from 'ngx-print';
+import { PrintOrderComponent } from './print-order/print-order.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,8 @@ const routes: Routes = [
     component: ProductComponent
   },
   { path: 'category', component: TypeComponent },
-  { path: 'order', component: OrderComponent}
+  { path: 'order', component: OrderComponent },
+
 ];
 
 @NgModule({
@@ -38,9 +40,6 @@ const routes: Routes = [
     Ng2SearchPipeModule,
     FormsModule,
     NgxPrintModule
-
-
-
 
   ],
 

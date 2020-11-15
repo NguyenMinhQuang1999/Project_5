@@ -12,7 +12,7 @@ export class ApiService {
   constructor(private _http: HttpClient, public router: Router) {}
 
   post(url: string, obj: any) {
-    const body = JSON.stringify(obj);
+    const body = JSON.stringify(obj);// chuyen doi tuong thanh json gui den mai chu
     let cloneHeader: any = {};
     cloneHeader['Content-Type'] = 'application/json';
     const headerOptions = new HttpHeaders(cloneHeader);

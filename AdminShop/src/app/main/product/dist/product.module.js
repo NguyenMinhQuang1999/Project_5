@@ -27,7 +27,7 @@ var routes = [
         component: product_component_1.ProductComponent
     },
     { path: 'category', component: type_component_1.TypeComponent },
-    { path: 'order', component: order_component_1.OrderComponent }
+    { path: 'order', component: order_component_1.OrderComponent },
 ];
 var ProductModule = /** @class */ (function () {
     function ProductModule() {

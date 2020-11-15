@@ -22,7 +22,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
   }
 
     config: any;
-  p: number = 1;
+        p: number = 1;
         formData: any;
         name: any;
         category_id: any;
@@ -58,6 +58,16 @@ export class ProductComponent extends BaseComponent implements OnInit {
 
  get f() { return this.formData.controls };
 
+  loadPage() {
+    Observable.combineLatest(
+      this._api.get('api/bill/get-billdetail')
+    ).takeUntil(this.unsubcribe).subscribe(
+      res => {
+        this.billdetail = res[0];
+        console.log(this.billdetail);
+      }, err => { }
+    );
+  }
 
   ngOnInit(): void {
 
@@ -138,7 +148,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
       if (this.checkInBill(id) == true) {
 
          alert("Sản phẩm đang có trong giỏ hàng!");
-         this.messageService.add({severity:'warning', summary:'Service Message', detail:'Via MessageService'});
+        // this.messageService.add({severity:'warning', summary:'Service Message', detail:'Via MessageService'});
         }else{
 
       Observable.combineLatest(
@@ -147,7 +157,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
         res => {
 
           this.products = this.products.filter(val => val.product_id !== id);
-          this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
+      //    this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000 });
 
           }
 
@@ -219,8 +229,12 @@ export class ProductComponent extends BaseComponent implements OnInit {
               }).takeUntil(this.unsubcribe).subscribe((res) => {
                 this.message = res;
                 this.products.unshift(this.message);
-                  this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-                $("#formModal").modal('hide');
+              //  this.messageService.add({ severity: 'success', summary: 'Service Message', detail: 'Via MessageService' });
+                setTimeout(() => {
+                  $("#formModal").modal('hide');
+                  this.loadPage();
+                });
+
               });
             });
           } else {
@@ -241,8 +255,10 @@ export class ProductComponent extends BaseComponent implements OnInit {
                 this.message = res;
                 this.products[this.findIndexById(this.message.product_id)] = this.message;
                  this.messageService.add({severity:'success', summary:'Service Message', detail:'Via MessageService'});
-                //  location.reload();
-                $("#formModal").modal('hide');
+               setTimeout(() => {
+                  $("#formModal").modal('hide');
+                  this.loadPage();
+                });
               });
             });
           }

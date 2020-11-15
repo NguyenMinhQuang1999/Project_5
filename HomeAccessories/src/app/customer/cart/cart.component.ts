@@ -9,6 +9,7 @@ import { BaseComponent } from 'src/app/lib/base-component';
 export class CartComponent extends BaseComponent implements OnInit {
   total: any;
   items: any;
+  soluong: any;
 
   constructor(injector: Injector) {
     super(injector);
@@ -29,12 +30,15 @@ export class CartComponent extends BaseComponent implements OnInit {
     alert('Xóa thành công!');
   }
   addQty(item, quantity_sale) {
+    this.soluong = item.quantity_sale;
+    console.log(this.soluong);
     if (item.quantity >= quantity_sale) {
       item.quantity_sale = quantity_sale;
       item.money = Number.parseInt(item.quantity_sale) * item.price;
       this._cart.addQty(item);
     } else {
       alert('Số lượng không đủ!');
+      item.quantity_sale = +this.soluong;
     }
   }
 }

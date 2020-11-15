@@ -112,6 +112,7 @@ var UserComponent = /** @class */ (function (_super) {
                 var data_image = data == '' ? null : data;
                 var tmp = {
                     //  image_url: data_image,
+                    user_id: _this.user_id,
                     name: value.name,
                     address: value.address,
                     username: value.username,
@@ -168,6 +169,7 @@ var UserComponent = /** @class */ (function (_super) {
     UserComponent.prototype.openUpdateModal = function (id) {
         var _this = this;
         // this.doneSetupForm = false;
+        this.user_id = id;
         this.showUpdateModal = true;
         this.isCreate = false;
         setTimeout(function () {

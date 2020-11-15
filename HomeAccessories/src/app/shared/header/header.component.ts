@@ -12,13 +12,15 @@ declare var $: any;
 export class HeaderComponent extends BaseComponent implements OnInit {
   total: any;
 
-   list: any;
+  list: any;
   page: any;
   pageSize: any;
   totalItems: any;
   category_id: any;
   categories: any;
-   name: any;
+  name: any;
+
+  keyword:string = 'tai nghe';
   constructor(injector: Injector) {
     super(injector);
   }
@@ -28,57 +30,44 @@ export class HeaderComponent extends BaseComponent implements OnInit {
       this.total = res ? res.length : 0;
 
       $('#total').data('number', this.total);
-       this._api
-      .get('api/category/get-category')
-      .takeUntil(this.unsubscribe)
-      .subscribe((res) => {
-        this.categories = res;
-      });
-
-    this.list = [];
-    this.page = 1;
-    this.pageSize = 8;
-    this._route.params.subscribe((params) => {
-      this.category_id = params['id'];
       this._api
-        .post('api/product/search', {
-          page: this.page,
-          pageSize: this.pageSize,
-          category_id: this.category_id,
-        })
+        .get('api/category/get-category')
         .takeUntil(this.unsubscribe)
-        .subscribe(
-          (res) => {
-            this.list = res.data;
-            console.log(this.list);
-            this.totalItems = res.totalItems;
-          },
-          (err) => {}
-        );
+        .subscribe((res) => {
+          this.categories = res;
+        });
+
+
     });
-    });
+    // this.sendMessage();
+    // this.clearMessages();
+
+
+
+    this.loadPage();
   }
+  loadPage() {
+    this._cart.items.subscribe((res) => {
+      this.total = res ? res.length : 0;
+
+      $('#total').data('number', this.total);
+      console.log(this.total);
 
 
-
-  loadPage(page) {
-    this._route.params.subscribe((params) => {
-      let id = params['id'];
-      this._api
-        .post('api/product/search', {
-          page: page,
-          pageSize: this.pageSize,
-          category_id: id,
-        })
-        .takeUntil(this.unsubscribe)
-        .subscribe(
-          (res) => {
-            this.list = res.data;
-            console.log(this.list);
-            this.totalItems = res.totalItems;
-          },
-          (err) => {}
-        );
     });
+    }
+
+
+
+  sendMessage(key) : void   {
+    this._search.sendMessage(key);
+    console.log(key);
+
   }
+  clearMessages(): void {
+        // clear messages
+        this._search.clearMessges();
+    }
+
+
 }
