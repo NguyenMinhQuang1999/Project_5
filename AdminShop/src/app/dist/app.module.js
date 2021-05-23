@@ -33,8 +33,7 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 app_component_1.AppComponent,
                 login_component_1.LoginComponent,
-                print_order_component_1.PrintOrderComponent
-                // HighchartsChartComponent
+                print_order_component_1.PrintOrderComponent,
             ],
             imports: [
                 platform_browser_1.BrowserModule,

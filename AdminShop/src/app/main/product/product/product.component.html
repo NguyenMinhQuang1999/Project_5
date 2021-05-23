@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Quản lý sản phẩm</h1>
+            <h1>Quản lý sản phẩm {{ count != 0 ? '   (Số lượng: ' + count + ')': ''}}</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -25,7 +25,23 @@
         <div class="card-header">
 
 
-          <button class="btn btn-success btn-sm" (click)="create()">Thêm sản phẩm</button>
+          <button  class="btn btn-success btn-sm" (click)="create()">Thêm sản phẩm</button>
+          <div style="margin-left: 10px;" class="btn-group">
+                  <button type="button" class="btn  btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Thống kê sản phẩm</button>
+                          <div class="dropdown-menu">
+
+                          <ng-container *ngFor="let i of thongke">
+                                 <a class="dropdown-item"  (click)="thongkesanpham(i.id)"> <i class="fas fa-ban"> </i>{{ i.name }}</a>
+                          </ng-container>
+
+
+
+
+
+                        </div>
+            </div>
+
 
           <div class="card-tools">
 

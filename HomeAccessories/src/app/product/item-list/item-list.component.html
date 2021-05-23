@@ -26,7 +26,7 @@
              <a href="#shop-1" data-toggle="tab">
                <i class="fa fa-th"></i>
              </a>
-             <a class="active" href="#shop-2" data-toggle="tab">
+             <a class="active"  href="#shop-2" data-toggle="tab">
                <i class="fa fa-list"></i>
              </a>
              <p>Sản phẩm</p>
@@ -62,7 +62,7 @@
 
                      <article class="list-product">
                        <div class="img-block">
-                         <a href="single-product.html" class="thumbnail">
+                         <a [routerLink]="['/product/detail/',item.product_id]" class="thumbnail">
                            <img class="first-img" src="assets/image/{{item.image_url}}" alt="" />
                            <img class="second-img" src="assets/image/{{item.image_url}}" alt="" />
                          </a>
@@ -123,7 +123,7 @@
                          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
                            <div class="left-img">
                              <div class="img-block">
-                               <a href="single-product.html" class="thumbnail">
+                               <a  [routerLink]="['/product/detail/',i.product_id]" class="thumbnail">
                                  <img class="first-img" src="assets/image/{{i.image_url}}" alt="" />
                                  <img class="second-img" src="assets/image/{{i.image_url}}" alt="" />
                                </a>
@@ -143,7 +143,7 @@
                            <div class="product-desc-wrap">
                              <div class="product-decs">
                                <!-- <a class="inner-link" href="shop-4-column.html"><span>GRAPHIC CORNER</span></a> -->
-                               <h2><a href="single-product.html" class="product-link">{{ i.name }}</a>
+                               <h2><a  [routerLink]="['/product/detail/',i.product_id]" class="product-link">{{ i.name }}</a>
                                </h2>
                                <div class="rating-product">
                                  <i class="ion-android-star"></i>

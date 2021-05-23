@@ -56,9 +56,7 @@ exports.mainRoutes = [
                 path: 'thong-ke',
                 loadChildren: function () {
                     return Promise.resolve().then(function () { return require('../main/thongke/thongke.module'); }).then(function (m) { return m.ThongkeModule; });
-                },
-                canActivate: [auth_guard_1.RoleGuard],
-                data: { roles: [role_1.Role.Admin] }
+                }
             },
         ]
     },
@@ -76,7 +74,7 @@ var MainModule = /** @class */ (function () {
                 main_component_1.MainComponent,
                 not_found_component_1.NotFoundComponent,
                 dashboard_component_1.DashboardComponent,
-                thongke_component_1.ThongkeComponent
+                thongke_component_1.ThongkeComponent,
             ],
             imports: [common_1.CommonModule, router_1.RouterModule.forChild(exports.mainRoutes), shared_module_1.SharedModule, chart_1.ChartModule,]
         })

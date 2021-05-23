@@ -40,17 +40,21 @@ export class ProductComponent extends BaseComponent implements OnInit {
         products: any;
         product: any;
 
+
         category: any;
+        soluong:  any;
 
-  public billdetail: any;
+        public billdetail: any;
 
-  public pageSize = 3;
-  public page = 1;
-  public uploadedFiles: any[] = [];
-  public formsearch: any;
-  totalRecords: any;
+        public pageSize = 3;
+        public page = 1;
+        public uploadedFiles: any[] = [];
+        public formsearch: any;
+        totalRecords: any;
 
-  term: string;
+        term: string;
+  thongke: any;
+  count = 0;
 
 
 
@@ -65,11 +69,17 @@ export class ProductComponent extends BaseComponent implements OnInit {
       res => {
         this.billdetail = res[0];
         console.log(this.billdetail);
+
       }, err => { }
     );
   }
 
   ngOnInit(): void {
+    this.thongke = [
+      { id: 1, name: 'Sản phẩm bán chạy' },
+      { id: 2, name: 'Sản phẩm bán chậm' },
+    ];
+
 
     this.formsearch = this.fb.group({
       'category_id': ['']
@@ -96,6 +106,7 @@ export class ProductComponent extends BaseComponent implements OnInit {
           res=> {
             this.products = res[0];
             console.log(this.products);
+            this.soluong = this.products.length;
           setTimeout(() => {
 
           });
@@ -120,6 +131,26 @@ export class ProductComponent extends BaseComponent implements OnInit {
       currentPage: 1,
       // totalItems: this.products.length
     };
+  }
+
+
+
+  thongkesanpham(id) {
+    if (id == 1) {
+      Observable.combineLatest(this._api.get('api/product/ban-chay')).takeUntil(this.unsubcribe).subscribe(
+        (res) => {
+          this.products = res[0];
+          this.count = this.products.length;
+        }
+      )
+    } else {
+      Observable.combineLatest(this._api.get('api/product/ban-cham')).takeUntil(this.unsubcribe).subscribe(
+        (res) => {
+          this.products = res[0];
+          this.count = this.products.length;
+        }
+      )
+    }
   }
 
 

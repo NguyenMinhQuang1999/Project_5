@@ -39,6 +39,7 @@ var ProductComponent = /** @class */ (function (_super) {
         _this.pageSize = 3;
         _this.page = 1;
         _this.uploadedFiles = [];
+        _this.count = 0;
         return _this;
     }
     Object.defineProperty(ProductComponent.prototype, "f", {
@@ -56,6 +57,10 @@ var ProductComponent = /** @class */ (function (_super) {
     };
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.thongke = [
+            { id: 1, name: 'Sản phẩm bán chạy' },
+            { id: 2, name: 'Sản phẩm bán chậm' },
+        ];
         this.formsearch = this.fb.group({
             'category_id': ['']
         });
@@ -74,6 +79,7 @@ var ProductComponent = /** @class */ (function (_super) {
         rxjs_1.Observable.combineLatest(this._api.get('api/product/get-all')).takeUntil(this.unsubcribe).subscribe(function (res) {
             _this.products = res[0];
             console.log(_this.products);
+            _this.soluong = _this.products.length;
             setTimeout(function () {
             });
         }, function (err) { });
@@ -89,6 +95,21 @@ var ProductComponent = /** @class */ (function (_super) {
             itemsPerPage: 5,
             currentPage: 1
         };
+    };
+    ProductComponent.prototype.thongkesanpham = function (id) {
+        var _this = this;
+        if (id == 1) {
+            rxjs_1.Observable.combineLatest(this._api.get('api/product/ban-chay')).takeUntil(this.unsubcribe).subscribe(function (res) {
+                _this.products = res[0];
+                _this.count = _this.products.length;
+            });
+        }
+        else {
+            rxjs_1.Observable.combineLatest(this._api.get('api/product/ban-cham')).takeUntil(this.unsubcribe).subscribe(function (res) {
+                _this.products = res[0];
+                _this.count = _this.products.length;
+            });
+        }
     };
     ProductComponent.prototype.checkInBill = function (id) {
         var ok = false;

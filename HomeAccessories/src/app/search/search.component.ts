@@ -27,15 +27,8 @@ export class SearchComponent extends BaseComponent implements OnInit {
   }
 
 
-
-
   ngOnInit(): void {
     //Nhan chuoi tim kiem
-
-
-
-
-
 
     this.list = [];
     this.page = 1;

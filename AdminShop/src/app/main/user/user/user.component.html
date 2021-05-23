@@ -26,7 +26,17 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Quản lý người dùng</h3>
+<!--
+    <div class="input-group input-group-md">
+      <input class="form-control" formControlName="username" type="text" placeholder="Nhập thông tin..." >
+      <div class="input-group-append">
+        <button class="btn btn-info btn-md" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div> -->
+          <h3 class="card-title">Tổng số người dùng: {{soluong}} </h3>
+
 
           <div class="card-tools">
                 <button class="btn btn-success btn-sm" (click)="createModal()">Thêm người dùng</button>

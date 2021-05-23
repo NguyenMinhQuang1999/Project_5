@@ -16,6 +16,7 @@ import { HighchartsChartComponent } from 'highcharts-angular';
 import { ChartModule } from 'primeng/chart';
 import { ThongkeComponent } from './thongke/thongke.component';
 
+
 export const mainRoutes: Routes = [
   {
     path: '',
@@ -45,14 +46,13 @@ export const mainRoutes: Routes = [
         canActivate: [RoleGuard],
        data: {roles: [Role.Admin, Role.User]}
       },
-        {
+      {
         path: 'thong-ke',
         loadChildren: () =>
          import('../main/thongke/thongke.module').then(
             (m) => m.ThongkeModule
           ),
-        canActivate: [RoleGuard],
-       data: {roles: [Role.Admin]}
+
       },
 
 
@@ -70,7 +70,8 @@ export const mainRoutes: Routes = [
     MainComponent,
     NotFoundComponent,
     DashboardComponent,
-    ThongkeComponent
+    ThongkeComponent,
+
   ],
   imports: [CommonModule, RouterModule.forChild(mainRoutes),SharedModule , ChartModule,]
 })

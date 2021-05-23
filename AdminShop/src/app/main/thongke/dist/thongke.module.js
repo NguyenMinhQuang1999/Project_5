@@ -13,10 +13,14 @@ var router_1 = require("@angular/router");
 var shared_module_1 = require("src/app/shared/shared.module");
 var ngx_pagination_1 = require("ngx-pagination");
 var thongke_component_1 = require("./thongke.component");
+var product_component_1 = require("./product/product.component");
 var routes = [
     {
         path: '',
         component: thongke_component_1.ThongkeComponent
+    },
+    {
+        path: 'products', component: product_component_1.ProductComponent
     }
 ];
 var ThongkeModule = /** @class */ (function () {
@@ -24,7 +28,7 @@ var ThongkeModule = /** @class */ (function () {
     }
     ThongkeModule = __decorate([
         core_1.NgModule({
-            declarations: [],
+            declarations: [product_component_1.ProductComponent],
             imports: [
                 router_1.RouterModule.forChild(routes),
                 common_1.CommonModule,

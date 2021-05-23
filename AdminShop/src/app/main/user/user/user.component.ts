@@ -26,6 +26,7 @@ export class UserComponent extends BaseComponent implements OnInit {
   public isCreate: any;
   public list: any;
   public user_id: any;
+  public soluong: any;
 
   submitted = false;
   @ViewChild(FileUpload, { static: false }) file_image: FileUpload;
@@ -46,6 +47,8 @@ export class UserComponent extends BaseComponent implements OnInit {
       takeUntil(this.unsubcribe).subscribe(res => {
         this.list = res;
         console.log(this.list);
+        this.soluong = res.length;
+        console.log(this.soluong);
 
       });
   }
